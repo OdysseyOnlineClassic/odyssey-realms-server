@@ -1019,8 +1019,9 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     If Len(St) >= 1 And Len(St) <= 512 Then
                         A = SysAllocStringByteLen(St, Len(St))
                         Parameter(0) = Index
-                        Parameter(1) = A
-                        B = RunScript("MAPSAY" + CStr(MapNum))
+                        Parameter(1) = MapNum
+                        Parameter(2) = A
+                        B = RunScript("MAPSAY")
                         SysFreeString A
 
                         PrintChat "Say", .Name + " says, '" + St + "'"
@@ -1072,8 +1073,9 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                         If C > 0 Then
                             If Map(MapNum).Object(A).X = .X And Map(MapNum).Object(A).Y = .Y Then
                                 Parameter(0) = Index
-                                Parameter(1) = Map(MapNum).Object(A).Value
-                                If RunScript("GETOBJ" + CStr(C)) = 0 Then
+                                Parameter(1) = C
+                                Parameter(2) = Map(MapNum).Object(A).Value
+                                If RunScript("GETOBJ") = 0 Then
                                     If .Access > 0 Then PrintGod .User, " (Pick up) Object: " + Object(Map(MapNum).Object(A).Object).Name + "   Value: " + CStr(Map(MapNum).Object(A).Value)
                                     PrintItem .User + " - " + .Name + " (Pick up) " + Object(Map(MapNum).Object(A).Object).Name + " (" + CStr(Map(MapNum).Object(A).Value) + ") - Map: " + CStr(.Map)
                                     If Object(C).Type = 6 Or Object(C).Type = 11 Then
@@ -1133,12 +1135,14 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     If A >= 1 And A <= 20 Then
                         B = .Inv(A).Object
                         Parameter(0) = Index
-                        If RunScript("DROPOBJ" + CStr(B)) = 0 Then
+                        Parameter(1) = B
+                        Parameter(2) = .Inv(A).Value 'Packet ID 9 is only sent when all dropped, otherwise looks like ID 55 or 53
+                        If RunScript("DROPOBJ") = 0 Then
                             If B > 0 Then
                                 C = FreeMapObj(MapNum)
                                 If C >= 0 Then
                                     If .Access > 0 Then PrintGod .User, " (Drop) Object: " + Object(B).Name + "  Value: " + CStr(.Inv(A).Value)
-                                   PrintItem .User + " - " + .Name + " (Drop) " + Object(B).Name + " (" + CStr(.Inv(A).Value) + ") - Map: " + CStr(.Map)
+                                    PrintItem .User + " - " + .Name + " (Drop) " + Object(B).Name + " (" + CStr(.Inv(A).Value) + ") - Map: " + CStr(.Map)
                                     If .EquippedObject(6).Object = A Then
                                         .EquippedObject(6).Object = 0
                                         .EquippedObject(6).ItemPrefix = 0
@@ -1209,7 +1213,8 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     If A >= 1 And A <= 20 Then
                         If .Inv(A).Object > 0 Then
                             Parameter(0) = Index
-                            If RunScript("USEOBJ" + CStr(.Inv(A).Object)) = 0 Then
+                            Parameter(1) = .Inv(A).Object
+                            If RunScript("USEOBJ") = 0 Then
                                 If .Inv(A).Object > 0 Then
                                     If Not ExamineBit(Object(.Inv(A).Object).ClassReq, .Class - 1) = 255 Then
                                         Select Case Object(.Inv(A).Object).Type
@@ -1719,67 +1724,67 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                                     If Sqr((CSng(Map(MapNum).Monster(A).X) - CSng(.X)) ^ 2 + (CSng(Map(MapNum).Monster(A).Y) - CSng(.Y)) ^ 2) <= LagHitDistance Then
                                         If NoDirectionalWalls(CLng(.Map), CLng(.X), CLng(.Y), CLng(.D)) Then
                                             Parameter(0) = Index
-                                            If RunScript("ATTACKMONSTER" + CStr(Map(MapNum).Monster(A).Monster)) = 0 Then
-                                            
-                                                Parameter(0) = Index
-                                                Parameter(1) = .Map
-                                                Parameter(2) = A
-                                                If RunScript("ATTACKMONSTER") = 0 Then
-                                            
-                                                    .TimeLeft = .LastMsg + 850
-                                                    With Monster(Map(MapNum).Monster(A).Monster)
-                                                        Dim AgilityChance As Integer
-                                                        If CInt(.Agility) - CInt(statPlayerAgility) > 0 Then AgilityChance = CInt(.Agility) - CInt(statPlayerAgility) Else AgilityChance = 0
-                                                        If Int(Rnd * 100) > AgilityChance Then
-                                                            'Hit Target
-                                                            B = 0
-                                                            C = PlayerDamage(Index) - .Armor
-                                                            If C < 0 Then C = 0
-                                                            If C > 255 Then C = 255
+                                            Parameter(1) = Map(MapNum).Monster(A).Monster
+                                            Parameter(2) = .Map
+                                            Parameter(3) = A
+                                            If RunScript("ATTACKMONSTER") = 0 Then
+                                        
+                                                .TimeLeft = .LastMsg + 850
+                                                With Monster(Map(MapNum).Monster(A).Monster)
+                                                    Dim AgilityChance As Integer
+                                                    If CInt(.Agility) - CInt(statPlayerAgility) > 0 Then AgilityChance = CInt(.Agility) - CInt(statPlayerAgility) Else AgilityChance = 0
+                                                    If Int(Rnd * 100) > AgilityChance Then
+                                                        'Hit Target
+                                                        B = 0
+                                                        C = PlayerDamage(Index) - .Armor
+                                                        If C < 0 Then C = 0
+                                                        If C > 255 Then C = 255
+                                                    Else
+                                                        'Missed
+                                                        B = 1
+                                                        C = 0
+                                                    End If
+                                                End With
+
+                                                With Map(MapNum).Monster(A)
+                                                    .Target = Index
+                                                    .TargetIsMonster = False
+                                                    If .HP > C Then
+                                                        .HP = .HP - C
+                                                        'Attacked Monster
+                                                        SendToMap MapNum, Chr$(44) + Chr$(Index) + Chr$(B) + Chr$(A) + Chr$(C) + DoubleChar$(CLng(.HP))
+                                                    Else
+                                                        'Attacked Monster
+                                                        SendToMap MapNum, Chr$(44) + Chr$(Index) + Chr$(B) + Chr$(A) + Chr$(C) + DoubleChar$(CLng(.HP))
+
+                                                        'Monster Died
+                                                        SendToMapAllBut MapNum, Index, Chr$(39) + Chr$(A)    'Monster Died
+
+                                                        'Experience
+                                                        If ExamineBit(Monster(.Monster).flags, 4) = False Then
+                                                            GainExp Index, CLng(Monster(.Monster).Experience)
                                                         Else
-                                                            'Missed
-                                                            B = 1
-                                                            C = 0
+                                                            GainEliteExp Index, CLng(Monster(.Monster).Experience)
                                                         End If
-                                                    End With
-    
-                                                    With Map(MapNum).Monster(A)
-                                                        .Target = Index
-                                                        .TargetIsMonster = False
-                                                        If .HP > C Then
-                                                            .HP = .HP - C
-                                                            'Attacked Monster
-                                                            SendToMap MapNum, Chr$(44) + Chr$(Index) + Chr$(B) + Chr$(A) + Chr$(C) + DoubleChar$(CLng(.HP))
-                                                        Else
-                                                            'Attacked Monster
-                                                            SendToMap MapNum, Chr$(44) + Chr$(Index) + Chr$(B) + Chr$(A) + Chr$(C) + DoubleChar$(CLng(.HP))
-    
-                                                            'Monster Died
-                                                            SendToMapAllBut MapNum, Index, Chr$(39) + Chr$(A)    'Monster Died
-    
-                                                            'Experience
-                                                            If ExamineBit(Monster(.Monster).flags, 4) = False Then
-                                                                GainExp Index, CLng(Monster(.Monster).Experience)
-                                                            Else
-                                                                GainEliteExp Index, CLng(Monster(.Monster).Experience)
-                                                            End If
-                                                            
-                                                            SendSocket Index, Chr$(51) + Chr$(A) + QuadChar(Player(Index).Experience)    'You killed monster
-    
-                                                            D = Int(Rnd * 3)
-                                                            E = Monster(.Monster).Object(D)
-                                                            If E > 0 Then
-                                                                NewMapObject MapNum, E, Monster(.Monster).Value(D), CLng(.X), CLng(.Y), False
-                                                            End If
-    
-                                                            Parameter(0) = Index
-                                                            RunScript "MONSTERDIE" + CStr(.Monster)
-                                                            
-                                                            .Monster = 0
+                                                        
+                                                        SendSocket Index, Chr$(51) + Chr$(A) + QuadChar(Player(Index).Experience)    'You killed monster
+
+                                                        D = Int(Rnd * 3)
+                                                        E = Monster(.Monster).Object(D)
+                                                        If E > 0 Then
+                                                            NewMapObject MapNum, E, Monster(.Monster).Value(D), CLng(.X), CLng(.Y), False
                                                         End If
-                                                    End With
-                                                End If 'AttackMonster Script
-                                            End If  'Attack Monster# Script
+
+                                                        Parameter(0) = Index
+                                                        Parameter(1) = .Monster
+                                                        Parameter(2) = MapNum
+                                                        Parameter(3) = A
+                                                        RunScript "MONSTERDIE"
+                                                        
+                                                        .Monster = 0
+                                                    End If
+                                                End With
+                                            End If 'AttackMonster Script
                                         End If    'Directional Walls Check
                                     Else
                                         SendSocket Index, Chr$(16) + Chr$(7)    'Too far away
@@ -2465,12 +2470,14 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     If A >= 1 Then
                         B = Asc(Mid$(St, 1, 1))
                         If B <= 9 Then
+                        
                             With NPC(A).SaleItem(B)
                                 C = .GiveObject
                                 D = .GiveValue
                                 E = .TakeObject
                                 F = .TakeValue
                             End With
+                            
                             If C >= 1 And E >= 1 Then
                                 G = FindUnEquipInvObject(Index, E)
                                 If G > 0 Then
@@ -2496,9 +2503,19 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                                             I = FreeInvNum(Index)
                                         End If
                                         If I > 0 Then
+                                            Dim GetObjResult As Long
+                                            Dim DropObjResult As Long
+                                        
                                             Parameter(0) = Index
-                                            Parameter(1) = D
-                                            If RunScript("GETOBJ" + CStr(C)) = 0 And RunScript("DROPOBJ" + CStr(E)) = 0 Then
+                                            Parameter(1) = C
+                                            Parameter(2) = D
+                                            GetObjResult = RunScript("GetObj")
+                                            
+                                            Parameter(1) = E
+                                            Parameter(2) = F
+                                            DropObjResult = RunScript("DropObj")
+                                                                                        
+                                            If GetObjResult = 0 And DropObjResult = 0 Then
                                                 With .Inv(G)
                                                     If Object(E).Type = 6 Or Object(E).Type = 11 Then
                                                         .Value = .Value - F
@@ -2962,7 +2979,8 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                             A = Asc(Mid$(St, 1, 1))
                             If ExamineBit(Magic(A).Class, .Class - 1) = True And .Level >= Magic(A).Level Then
                                 Parameter(0) = Index
-                                RunScript "spell" + CStr(A)
+                                Parameter(1) = A
+                                RunScript "Spell"
                             End If
                         End If
                     End If
@@ -3073,7 +3091,10 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     A = Asc(Mid$(St, 1, 1))
                     B = Asc(Mid$(St, 2, 1))
                     Parameter(0) = Index
-                    RunScript ("MAPCLICK" + CStr(.Map) + "_" + CStr(A) + "_" + CStr(B))
+                    Parameter(1) = .Map
+                    Parameter(2) = A
+                    Parameter(3) = B
+                    RunScript ("MAPCLICK")
                 End If
             Case 92    'Speedhack Check
                 A = Tick - .SpeedHackTimer

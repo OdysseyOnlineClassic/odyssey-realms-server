@@ -132,13 +132,18 @@ End Sub
 
 Sub ProjectileAttackMonster(Index As Long, A As Long)
     Dim B As Long, C As Long, D As Long, E As Long
+    Dim MapNum As Long
     With Player(Index)
+        MapNum = .Map
         If .IsDead = False Then
             If ExamineBit(Map(.Map).flags, 5) = False Then
                 If A <= MaxMonsters Then
                     If Map(.Map).Monster(A).Monster > 0 Then
                         Parameter(0) = Index
-                        If RunScript("ATTACKMONSTER" + CStr(Map(.Map).Monster(A).Monster)) = 0 Then
+                        Parameter(1) = Map(.Map).Monster(A).Monster
+                        Parameter(2) = .Map
+                        Parameter(3) = A
+                        If RunScript("ATTACKMONSTER") = 0 Then
                             With Monster(Map(.Map).Monster(A).Monster)
                                 'Hit Target
                                 B = 0
@@ -176,7 +181,10 @@ Sub ProjectileAttackMonster(Index As Long, A As Long)
                                     End If
 
                                     Parameter(0) = Index
-                                    RunScript "MONSTERDIE" + CStr(.Monster)
+                                    Parameter(1) = .Monster
+                                    Parameter(2) = MapNum
+                                    Parameter(3) = A
+                                    RunScript "MONSTERDIE"
 
                                     .Monster = 0
                                 End If
@@ -293,13 +301,18 @@ End Sub
 
 Sub MagicAttackMonster(Index As Long, A As Long, MagicDamage As Long)
     Dim B As Long, C As Long, D As Long, E As Long
+    Dim MapNum As Long
     With Player(Index)
         If .IsDead = False Then
+            MapNum = .Map
             If ExamineBit(Map(.Map).flags, 5) = False Then
                 If A <= MaxMonsters Then
                     If Map(.Map).Monster(A).Monster > 0 Then
                         Parameter(0) = Index
-                        If RunScript("ATTACKMONSTER" + CStr(Map(.Map).Monster(A).Monster)) = 0 Then
+                        Parameter(1) = Map(.Map).Monster(A).Monster
+                        Parameter(2) = .Map
+                        Parameter(3) = A
+                        If RunScript("ATTACKMONSTER") = 0 Then
                             With Monster(Map(.Map).Monster(A).Monster)
                                 'Hit Target
                                 B = 0
@@ -337,7 +350,10 @@ Sub MagicAttackMonster(Index As Long, A As Long, MagicDamage As Long)
                                     End If
 
                                     Parameter(0) = Index
-                                    RunScript "MONSTERDIE" + CStr(.Monster)
+                                    Parameter(1) = .Monster
+                                    Parameter(2) = MapNum
+                                    Parameter(3) = A
+                                    RunScript "MONSTERDIE"
 
                                     .Monster = 0
                                 End If

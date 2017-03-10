@@ -171,7 +171,7 @@ ReloadData:
             !GuildUpkeepMembers = 1000
             !GuildUpkeepSprite = 1000
 
-            !ServerPort = 5756
+            !ServerPort = 5750
 
             !Cost_Per_Durability = 100
             !Cost_Per_Strength = 100
