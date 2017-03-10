@@ -491,9 +491,11 @@ Private Function MonsterAttack(MapNum As Long, Tick As Currency, MonsterIndex As
                     
                     If .Monster > 0 And Map(MapNum).Monster(.Target).Monster > 0 Then
                         Parameter(0) = MapNum
-                        Parameter(1) = MonsterIndex
-                        Parameter(2) = .Target
-                        If RunScript("MVMATTACK" + CStr(Map(MapNum).Monster(.Target).Monster)) = 0 Then
+                        Parameter(1) = .Monster
+                        Parameter(2) = MonsterIndex
+                        Parameter(3) = Map(MapNum).Monster(.Target).Monster
+                        Parameter(4) = .Target
+                        If RunScript("MVMATTACK") = 0 Then
 
                             'Hit Target
                             C = CLng(Monster(.Monster).Strength) - CLng(Monster(Map(MapNum).Monster(.Target).Monster).Armor)
@@ -519,9 +521,11 @@ Private Function MonsterAttack(MapNum As Long, Tick As Currency, MonsterIndex As
                                     '    NewMapObject MapNum, E, Monster(.Monster).Value(D), CLng(.X), CLng(.Y), False
                                     'End If
                                     Parameter(0) = MapNum
-                                    Parameter(1) = MonsterIndex
-                                    Parameter(2) = Map(MapNum).Monster(MonsterIndex).Target
-                                    RunScript "MVMDIE" + CStr(.Monster)
+                                    Parameter(1) = Map(MapNum).Monster(MonsterIndex).Monster
+                                    Parameter(2) = MonsterIndex
+                                    Parameter(3) = .Monster
+                                    Parameter(4) = Map(MapNum).Monster(MonsterIndex).Target
+                                    RunScript "MVMDIE"
                                     .Monster = 0
                                     
                                     Map(MapNum).Monster(MonsterIndex).Target = 0
@@ -554,9 +558,11 @@ Private Sub CheckIfMonstersNotice(MapNum As Long, MonsterIndex As Long)
                                 I = Sqr((CLng(.X) - CLng(Map(MapNum).Monster(H).X)) ^ 2 + (CLng(.Y) - CLng(Map(MapNum).Monster(H).Y)) ^ 2)
                                 If I <= Monster(Map(MapNum).Monster(H).Monster).Sight Then
                                     Parameter(0) = MapNum
-                                    Parameter(1) = MonsterIndex
-                                    Parameter(2) = H
-                                    If RunScript("MVMSEE" + CStr(Map(MapNum).Monster(MonsterIndex).Monster)) = 0 Then
+                                    Parameter(1) = Map(MapNum).Monster(MonsterIndex).Monster
+                                    Parameter(2) = MonsterIndex
+                                    Parameter(3) = Map(MapNum).Monster(H).Monster
+                                    Parameter(4) = H
+                                    If RunScript("MVMSEE") = 0 Then
                                         Map(MapNum).Monster(H).Target = MonsterIndex
                                         Map(MapNum).Monster(H).TargetIsMonster = True
                                     End If
