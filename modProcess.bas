@@ -457,6 +457,10 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
     Dim St1 As String, St2 As String
     Dim MapNum As Long
     Dim Tick As Currency
+    
+    Dim GetObjResult As Long
+    Dim DropObjResult As Long
+    
     Tick = getTime()
 
     With Player(Index)
@@ -1130,82 +1134,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                 End If
 
             Case 9    'Drop Object
-                If Len(St) = 5 Then
-                    A = Asc(Mid$(St, 1, 1))
-                    If A >= 1 And A <= 20 Then
-                        B = .Inv(A).Object
-                        Parameter(0) = Index
-                        Parameter(1) = B
-                        Parameter(2) = .Inv(A).Value 'Packet ID 9 is only sent when all dropped, otherwise looks like ID 55 or 53
-                        If RunScript("DROPOBJ") = 0 Then
-                            If B > 0 Then
-                                C = FreeMapObj(MapNum)
-                                If C >= 0 Then
-                                    If .Access > 0 Then PrintGod .User, " (Drop) Object: " + Object(B).Name + "  Value: " + CStr(.Inv(A).Value)
-                                    PrintItem .User + " - " + .Name + " (Drop) " + Object(B).Name + " (" + CStr(.Inv(A).Value) + ") - Map: " + CStr(.Map)
-                                    If .EquippedObject(6).Object = A Then
-                                        .EquippedObject(6).Object = 0
-                                        .EquippedObject(6).ItemPrefix = 0
-                                        .EquippedObject(6).ItemSuffix = 0
-                                    End If
-                                    F = 0
-                                    If Object(B).Type = 6 Or Object(B).Type = 11 Then
-                                        If Asc(Mid$(St, 2, 1)) < 120 Then    'Crash Attempt
-                                            E = Asc(Mid$(St, 2, 1)) * 16777216 + Asc(Mid$(St, 3, 1)) * 65536 + Asc(Mid$(St, 4, 1)) * 256& + Asc(Mid$(St, 5, 1))
-                                            If Not E < 0 Then    'Dupe Attempt Check
-                                                If E < .Inv(A).Value Then
-                                                    D = E
-                                                    .Inv(A).Value = .Inv(A).Value - E
-                                                    F = 1
-                                                Else
-                                                    D = .Inv(A).Value
-                                                    .Inv(A).Object = 0
-                                                    .Inv(A).ItemPrefix = 0
-                                                    .Inv(A).ItemSuffix = 0
-                                                    G = 0
-                                                    H = 0
-                                                End If
-                                            Else
-                                                BanPlayer Index, 0, 99, "Definite Hacking Attempt (Dupe)", "Server"
-                                            End If
-                                        Else
-                                            BanPlayer Index, 0, 99, "Definite Hacking Attempt (Dupe/Crash)", "Server"
-                                        End If
-                                    Else
-                                        D = .Inv(A).Value
-                                        G = .Inv(A).ItemPrefix
-                                        H = .Inv(A).ItemSuffix
-                                        .Inv(A).Object = 0
-                                        .Inv(A).Value = 0
-                                        .Inv(A).ItemPrefix = 0
-                                        .Inv(A).ItemSuffix = 0
-                                    End If
-                                    With Map(MapNum).Object(C)
-                                        .Object = B
-                                        .ItemPrefix = G
-                                        .ItemSuffix = H
-                                        .Value = D
-                                        .TimeStamp = Player(Index).LastMsg + Int(Rnd * 60000) - 30000
-                                    End With
-                                    Map(MapNum).Object(C).X = .X
-                                    Map(MapNum).Object(C).Y = .Y
-                                    SendToMap MapNum, Chr$(14) + Chr$(C) + DoubleChar$(B) + Chr$(.X) + Chr$(.Y) + Chr$(Map(MapNum).Object(C).ItemPrefix) + Chr$(Map(MapNum).Object(C).ItemSuffix) + QuadChar$(Map(MapNum).Object(C).Value)    'New Map Obj
-                                    If F = 0 Then
-                                        SendSocket Index, Chr$(18) + Chr$(A)    'Erase Inv Obj
-                                    Else
-                                        SendSocket Index, Chr$(17) + Chr$(A) + DoubleChar$(B) + QuadChar(.Inv(A).Value) + Chr$(.Inv(A).ItemPrefix) + Chr$(.Inv(A).ItemSuffix)    'Update inv obj
-                                    End If
-                                Else
-                                    SendSocket Index, Chr$(16) + Chr$(2)    'Map full
-                                End If
-                            Else
-                                SendSocket Index, Chr$(16) + Chr$(3)    'No such object
-                            End If
-                        End If
-                    End If
-                Else
-                    Hacker Index, "A.18"
-                End If
+                ProcessDropObject Index, MapNum, St
 
             Case 10    'Use Object
                 If Len(St) = 1 Then
@@ -2503,9 +2432,6 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                                             I = FreeInvNum(Index)
                                         End If
                                         If I > 0 Then
-                                            Dim GetObjResult As Long
-                                            Dim DropObjResult As Long
-                                        
                                             Parameter(0) = Index
                                             Parameter(1) = C
                                             Parameter(2) = D
@@ -3579,3 +3505,100 @@ Function GetMonsterDrops(TheMonster As Long) As String
     
     GetMonsterDrops = St1
 End Function
+
+Sub ProcessDropObject(Index As Long, MapNum As Long, St As String)
+    If Not Len(St) = 5 Then
+        Hacker Index, "A.18"
+        Exit Sub
+    End If
+
+    Dim InvSlot As Long
+    Dim Obj As Long, Value As Long
+    Dim MapObj As Long
+    Dim Prefix As Long, Suffix As Long
+    
+    InvSlot = Asc(Mid$(St, 1, 1))
+    If InvSlot >= 1 And InvSlot <= 20 Then
+    Else
+        Exit Sub
+    End If
+    
+    With Player(Index)
+        Obj = .Inv(InvSlot).Object
+        If Not Obj > 0 Then
+            SendSocket Index, Chr$(16) + Chr$(3)    'No such object
+            Exit Sub
+        End If
+        
+        If Object(Obj).Type = 6 Or Object(Obj).Type = 11 Then
+            If Asc(Mid$(St, 2, 1)) < 120 Then    'Crash Attempt
+                Value = Asc(Mid$(St, 2, 1)) * 16777216 + Asc(Mid$(St, 3, 1)) * 65536 + Asc(Mid$(St, 4, 1)) * 256& + Asc(Mid$(St, 5, 1))
+                If Not Value < 0 Then
+                    If Not Value < .Inv(InvSlot).Value Then
+                        Value = .Inv(InvSlot).Value
+                        Prefix = 0
+                        Suffix = 0
+                    End If
+                Else
+                    BanPlayer Index, 0, 99, "Definite Hacking Attempt (Dupe)", "Server"
+                    Exit Sub
+                End If
+            Else
+                BanPlayer Index, 0, 99, "Definite Hacking Attempt (Dupe/Crash)", "Server"
+                Exit Sub
+            End If
+        Else 'Type != 6 or Type != 11
+            Value = .Inv(InvSlot).Value
+            Prefix = .Inv(InvSlot).ItemPrefix
+            Suffix = .Inv(InvSlot).ItemSuffix
+        End If 'Object Type
+
+        Parameter(0) = Index
+        Parameter(1) = Obj
+        Parameter(2) = Value
+        If Not RunScript("DROPOBJ") = 0 Then
+            Exit Sub
+        End If
+        
+        MapObj = FreeMapObj(MapNum)
+        If Not MapObj >= 0 Then
+            SendSocket Index, Chr$(16) + Chr$(2)    'Map full
+            Exit Sub
+        End If
+        
+        If .Access > 0 Then
+            PrintGod .User, " (Drop) Object: " + Object(Obj).Name + "  Value: " + CStr(Value)
+        End If
+        
+        PrintItem .User + " - " + .Name + " (Drop) " + Object(Obj).Name + " (" + CStr(Value) + ") - Map: " + CStr(.Map)
+        
+        If .EquippedObject(6).Object = InvSlot Then 'Ammo?
+            .EquippedObject(6).Object = 0
+            .EquippedObject(6).ItemPrefix = 0
+            .EquippedObject(6).ItemSuffix = 0
+        End If
+        
+        If Value < .Inv(InvSlot).Value Then
+            .Inv(InvSlot).Value = .Inv(InvSlot).Value - Value
+            SendSocket Index, Chr$(17) + Chr$(InvSlot) + DoubleChar$(Obj) + QuadChar(.Inv(InvSlot).Value) + Chr$(.Inv(InvSlot).ItemPrefix) + Chr$(.Inv(InvSlot).ItemSuffix)    'Update inv obj
+        Else
+            .Inv(InvSlot).Object = 0
+            .Inv(InvSlot).Value = 0
+            .Inv(InvSlot).ItemPrefix = 0
+            .Inv(InvSlot).ItemSuffix = 0
+            SendSocket Index, Chr$(18) + Chr$(InvSlot)    'Erase Inv Obj
+        End If
+        
+        With Map(MapNum).Object(MapObj)
+            .Object = Obj
+            .ItemPrefix = Prefix
+            .ItemSuffix = Suffix
+            .Value = Value
+            .TimeStamp = Player(Index).LastMsg + Int(Rnd * 60000) - 30000
+        End With
+        
+        Map(MapNum).Object(MapObj).X = .X
+        Map(MapNum).Object(MapObj).Y = .Y
+        SendToMap MapNum, Chr$(14) + Chr$(MapObj) + DoubleChar$(Obj) + Chr$(.X) + Chr$(.Y) + Chr$(Map(MapNum).Object(MapObj).ItemPrefix) + Chr$(Map(MapNum).Object(MapObj).ItemSuffix) + QuadChar$(Map(MapNum).Object(MapObj).Value)    'New Map Obj
+    End With
+End Sub
