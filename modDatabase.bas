@@ -975,7 +975,7 @@ Sub CreateGuildsTable()
     Set Td = DB.CreateTableDef("Guilds")
     Set NewField = Td.CreateField("Number", dbByte)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 20)
+    Set NewField = Td.CreateField("Name", dbText, 25)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("Hall", dbByte)
@@ -1155,7 +1155,7 @@ Sub CreateNPCsTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 15)
+    Set NewField = Td.CreateField("Name", dbText, 35)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("JoinText", dbText, 255)
@@ -1210,7 +1210,7 @@ Sub CreateMonstersTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 15)
+    Set NewField = Td.CreateField("Name", dbText, 35)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("Description", dbText, 255)
@@ -1268,7 +1268,7 @@ Sub CreateObjectsTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 15)
+    Set NewField = Td.CreateField("Name", dbText, 35)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("Description", dbText, 255)
@@ -1322,7 +1322,7 @@ Sub CreateMagicTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 15)
+    Set NewField = Td.CreateField("Name", dbText, 25)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("Level", dbByte)
@@ -1364,7 +1364,7 @@ Sub CreatePrefixTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 15)
+    Set NewField = Td.CreateField("Name", dbText, 20)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("ModificationType", dbByte)
@@ -1399,7 +1399,7 @@ Sub CreateSuffixTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 15)
+    Set NewField = Td.CreateField("Name", dbText, 20)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("ModificationType", dbByte)
