@@ -113,7 +113,10 @@ Function AttackMonster(ByVal Index As Long, ByVal MonsterIndex As Long, ByVal Da
             If Map(MapNum).Monster(MonsterIndex).Monster > 0 Then
                 ScriptRunning = False
                 Parameter(0) = Index
-                If RunScript("ATTACKMONSTER" + CStr(Map(MapNum).Monster(MonsterIndex).Monster)) = 0 Then
+                Parameter(1) = Map(MapNum).Monster(MonsterIndex).Monster
+                Parameter(2) = MapNum
+                Parameter(3) = MonsterIndex
+                If RunScript("ATTACKMONSTER") = 0 Then
                     If Damage < 0 Then Damage = 0
                     If Damage > 255 Then Damage = 255
                     With Map(MapNum).Monster(MonsterIndex)
@@ -140,7 +143,10 @@ Function AttackMonster(ByVal Index As Long, ByVal MonsterIndex As Long, ByVal Da
                             End If
 
                             Parameter(0) = Index
-                            RunScript "MONSTERDIE" + CStr(.Monster)
+                            Parameter(1) = .Monster
+                            Parameter(2) = MapNum
+                            Parameter(3) = MonsterIndex
+                            RunScript "MONSTERDIE"
                             
                             .Monster = 0
                             AttackMonster = True
@@ -152,6 +158,7 @@ Function AttackMonster(ByVal Index As Long, ByVal MonsterIndex As Long, ByVal Da
         End If
     End If
 End Function
+
 Function AttackPlayer(ByVal Index As Long, ByVal Target As Long, ByVal Damage As Long) As Long
     If Index >= 1 And Index <= MaxUsers And Target >= 1 And Target <= MaxUsers Then
         If Player(Index).Mode = modePlaying And Player(Target).Mode = modePlaying And Player(Target).IsDead = False Then
@@ -1303,31 +1310,32 @@ Function GetEquippedItemSuffix(ByVal Index As Long, ByVal Slot As Long) As Long
     End If
 End Function
 
-Function MonsterAttackPlayer(ByVal TheMap As Long, ByVal Monster As Long, ByVal Index As Long, ByVal Damage As Long) As Long
+Function MonsterAttackPlayer(ByVal TheMap As Long, ByVal MonsterIndex As Long, ByVal Index As Long, ByVal Damage As Long) As Long
     Dim C As Long
-    If Index >= 1 And Index <= MaxUsers And Monster >= 0 And Monster <= MaxMonsters Then
+    If Index >= 1 And Index <= MaxUsers And MonsterIndex >= 0 And MonsterIndex <= MaxMonsters Then
         If Player(Index).Mode = modePlaying And Player(Index).IsDead = False And Player(Index).Map = TheMap Then
             If TheMap >= 1 And TheMap <= MaxMaps Then
-                If Map(TheMap).Monster(Monster).Monster > 0 Then
+                If Map(TheMap).Monster(MonsterIndex).Monster > 0 Then
                     If Damage < 0 Then Damage = 0
                     If Damage > 255 Then Damage = 255
                     C = PlayerArmor(Index, Damage)
                     If C < 0 Then C = 0
                     If C > 255 Then C = 255
-                    SendSocket Index, Chr$(50) + Chr$(0) + Chr$(Monster) + Chr$(C)
+                    SendSocket Index, Chr$(50) + Chr$(0) + Chr$(MonsterIndex) + Chr$(C)
                     SendToMap TheMap, Chr$(111) + Chr$(12) + Chr$(C) + Chr$(Player(Index).X) + Chr$(Player(Index).Y)
-                    SendToMap TheMap, Chr$(41) + Chr$(Monster)
+                    SendToMap TheMap, Chr$(41) + Chr$(MonsterIndex)
                     With Player(Index)
                         If C >= .HP Then
-                            Parameter(0) = Map(.Map).Monster(Monster).Monster
-                            Parameter(1) = Monster
-                            Parameter(2) = Index
+                            Parameter(0) = Index
+                            Parameter(1) = Map(.Map).Monster(MonsterIndex).Monster
+                            Parameter(2) = TheMap
+                            Parameter(3) = MonsterIndex
                             ScriptRunning = False
-                            If RunScript("MONSTERKILL" + CStr(Map(.Map).Monster(Monster).Monster)) = 0 Then
+                            If RunScript("MONSTERKILL") = 0 Then
                                 'Player Died
-                                Map(.Map).Monster(Monster).Target = 0
-                                SendSocket Index, Chr$(53) + DoubleChar$(CLng(Map(.Map).Monster(Monster).Monster))    'Monster Killed You
-                                SendAllBut Index, Chr$(62) + Chr$(Index) + DoubleChar$(CLng(Map(.Map).Monster(Monster).Monster))    'Player was killed by monster
+                                Map(.Map).Monster(MonsterIndex).Target = 0
+                                SendSocket Index, Chr$(53) + DoubleChar$(CLng(Map(.Map).Monster(MonsterIndex).Monster))    'Monster Killed You
+                                SendAllBut Index, Chr$(62) + Chr$(Index) + DoubleChar$(CLng(Map(.Map).Monster(MonsterIndex).Monster))    'Player was killed by monster
                                 PlayerDied Index, -1
                             End If
                             ScriptRunning = True
@@ -1342,31 +1350,32 @@ Function MonsterAttackPlayer(ByVal TheMap As Long, ByVal Monster As Long, ByVal 
     End If
 End Function
 
-Function MonsterMagicAttackPlayer(ByVal TheMap As Long, ByVal Monster As Long, ByVal Index As Long, ByVal Damage As Long) As Long
+Function MonsterMagicAttackPlayer(ByVal TheMap As Long, ByVal MonsterIndex As Long, ByVal Index As Long, ByVal Damage As Long) As Long
     Dim C As Long
-    If Index >= 1 And Index <= MaxUsers And Monster >= 0 And Monster <= MaxMonsters Then
+    If Index >= 1 And Index <= MaxUsers And MonsterIndex >= 0 And MonsterIndex <= MaxMonsters Then
         If Player(Index).Mode = modePlaying And Player(Index).IsDead = False And Player(Index).Map = TheMap Then
             If TheMap >= 1 And TheMap <= MaxMaps Then
-                If Map(TheMap).Monster(Monster).Monster > 0 Then
+                If Map(TheMap).Monster(MonsterIndex).Monster > 0 Then
                     If Damage < 0 Then Damage = 0
                     If Damage > 255 Then Damage = 255
                     C = MagicArmor(Index, Damage)
                     If C < 0 Then C = 0
                     If C > 255 Then C = 255
-                    SendSocket Index, Chr$(50) + Chr$(0) + Chr$(Monster) + Chr$(C)
+                    SendSocket Index, Chr$(50) + Chr$(0) + Chr$(MonsterIndex) + Chr$(C)
                     SendToMap TheMap, Chr$(111) + Chr$(12) + Chr$(C) + Chr$(Player(Index).X) + Chr$(Player(Index).Y)
-                    SendToMap TheMap, Chr$(41) + Chr$(Monster)
+                    SendToMap TheMap, Chr$(41) + Chr$(MonsterIndex)
                     With Player(Index)
                         If C >= .HP Then
-                            Parameter(0) = Map(.Map).Monster(Monster).Monster
-                            Parameter(1) = Monster
-                            Parameter(2) = Index
+                            Parameter(0) = Index
+                            Parameter(1) = Map(.Map).Monster(MonsterIndex).Monster
+                            Parameter(2) = TheMap
+                            Parameter(3) = MonsterIndex
                             ScriptRunning = False
-                            If RunScript("MONSTERKILL" + CStr(Map(.Map).Monster(Monster).Monster)) = 0 Then
+                            If RunScript("MONSTERKILL") = 0 Then
                                 'Player Died
-                                Map(.Map).Monster(Monster).Target = 0
-                                SendSocket Index, Chr$(53) + DoubleChar$(CLng(Map(.Map).Monster(Monster).Monster))    'Monster Killed You
-                                SendAllBut Index, Chr$(62) + Chr$(Index) + DoubleChar$(CLng(Map(.Map).Monster(Monster).Monster))    'Player was killed by monster
+                                Map(.Map).Monster(MonsterIndex).Target = 0
+                                SendSocket Index, Chr$(53) + DoubleChar$(CLng(Map(.Map).Monster(MonsterIndex).Monster))    'Monster Killed You
+                                SendAllBut Index, Chr$(62) + Chr$(Index) + DoubleChar$(CLng(Map(.Map).Monster(MonsterIndex).Monster))    'Player was killed by monster
                                 PlayerDied Index, -1
                             End If
                             ScriptRunning = True
