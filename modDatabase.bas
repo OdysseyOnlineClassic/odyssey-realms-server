@@ -353,8 +353,8 @@ ReloadData:
     If UserRS.BOF = False Then
         UserRS.MoveFirst
         While UserRS.EOF = False
-            If CLng(Date) - UserRS!LastPlayed >= 60 Then
-                If UserRS!Level < 20 Then
+            If CLng(Date) - UserRS!LastPlayed >= 365 Then
+                If UserRS!Level < 2 Then
                     DeleteAccount
                 ElseIf UserRS!Name = vbNullString Then
                     DeleteAccount
