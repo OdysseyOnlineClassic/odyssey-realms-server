@@ -802,6 +802,7 @@ LogDatShit:
 End Sub
 Private Sub menuShutdown_Click()
     ShutdownServer
+    Unload frmOptions
     Unload Me
 End Sub
 

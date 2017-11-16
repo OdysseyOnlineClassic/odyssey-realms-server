@@ -2176,8 +2176,7 @@ Sub ShutdownServer()
     MagicRS.Close
     DB.Close
     WS.Close
-    
-    End
+
 End Sub
 Sub SendToMapAllBut(ByVal MapNum As Long, ByVal Index As Long, ByVal St As String)
     Dim A As Long
