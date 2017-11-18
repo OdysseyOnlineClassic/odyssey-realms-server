@@ -1,5 +1,5 @@
 Type=Exe
-Reference=*\G{00025E01-0000-0000-C000-000000000046}#5.0#0#C:\Program Files\Common Files\Microsoft Shared\DAO\dao360.dll#1\Program Files (x86)\Common Files\Microsoft Shared\DAO\dao360.dll#Microsoft DAO 3.6 Object Library
+Reference=*\G{00025E01-0000-0000-C000-000000000046}#5.0#0#..\..\..\..\..\Program Files (x86)\Common Files\Microsoft Shared\DAO\dao360.dll#1\Program Files (x86)\Common Files\Microsoft Shared\DAO\dao360.dll#Microsoft DAO 3.6 Object Library
 Object={248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0; MSWINSCK.OCX
 Form=frmMain.frm
 Form=frmLoading.frm

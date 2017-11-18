@@ -1019,7 +1019,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
 
             Case 6    'Say
                 If Not .Flag(40) > 0 And Not .Flag(41) > 0 And .IsDead = False Then
-                    .FloodTimer = .FloodTimer + 1000
+                    .FloodTimer = .FloodTimer + 500
                     If Len(St) >= 1 And Len(St) <= 512 Then
                         A = SysAllocStringByteLen(St, Len(St))
                         Parameter(0) = Index
@@ -1445,7 +1445,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
 
             Case 14    'Tell
                 If Not .Flag(40) > 0 And Not .Flag(41) > 0 Then
-                    .FloodTimer = .FloodTimer + 1000
+                    .FloodTimer = .FloodTimer + 500
                     If Len(St) >= 2 And Len(St) <= 513 Then
                         A = Asc(Mid$(St, 1, 1))
                         If A >= 1 And A <= MaxUsers Then
@@ -1469,7 +1469,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
             Case 15    'Broadcast
                 If Len(St) >= 1 And Len(St) <= 512 Then
                     If Not .Flag(40) > 0 And Not .Flag(41) > 0 And .IsDead = False Then
-                        .FloodTimer = .FloodTimer + 1500
+                        .FloodTimer = .FloodTimer + 750
 
                         A = SysAllocStringByteLen(St, Len(St))
                         Parameter(0) = Index
@@ -1496,7 +1496,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
 
             Case 16    'Emote
                 If Not .Flag(40) > 0 And Not .Flag(41) > 0 And .IsDead = False Then
-                    .FloodTimer = .FloodTimer + 1000
+                    .FloodTimer = .FloodTimer + 500
                     If Len(St) >= 1 And Len(St) <= 512 Then
                         SendToMapAllBut MapNum, Index, Chr$(27) + Chr$(Index) + St
                         PrintChat "Emote", .Name + " emotes, '" + St + "'"
@@ -1508,7 +1508,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                 End If
             Case 17    'Yell
                 If Not .Flag(40) > 0 And Not .Flag(41) > 0 And .IsDead = False Then
-                    .FloodTimer = .FloodTimer + 1200
+                    .FloodTimer = .FloodTimer + 600
                     If Len(St) >= 1 And Len(St) <= 512 Then
                         SendToMapAllBut MapNum, Index, Chr$(28) + Chr$(Index) + St
                         A = MapNum
@@ -2122,7 +2122,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
 
             Case 41    'Guild Chat
                 If Not .Flag(40) > 0 And Not .Flag(41) > 0 And .IsDead = False Then
-                    .FloodTimer = .FloodTimer + 1000
+                    .FloodTimer = .FloodTimer + 500
                     If Len(St) >= 1 Then
                         If .Guild > 0 Then
                             PrintChat "Guild", .Name + " <" + Guild(.Guild).Name + ">: " + St

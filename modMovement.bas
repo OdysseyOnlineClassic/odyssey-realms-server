@@ -109,7 +109,7 @@ Sub ProcessMovement(Index As Long, St As String, MapNum As Long)
             Case 17    'Directional Wall
                 If D = 1 Then
                     If .Access = 0 Then
-                        If NoDirectionalWalls2(CLng(.Map), CLng(.X), CLng(.Y), CLng(.D)) = False Then
+                        If NoDirectionalWalls(CLng(.Map), CLng(.X), CLng(.Y), CLng(.D)) = False Then
                             .X = I
                             .Y = J
                             PlayerWarp Index, .Map, .X, .Y
