@@ -3,14 +3,14 @@ Begin VB.Form frmMain
    Caption         =   "The Odyssey Classic Server"
    ClientHeight    =   1605
    ClientLeft      =   225
-   ClientTop       =   855
+   ClientTop       =   555
    ClientWidth     =   7500
    ControlBox      =   0   'False
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   1605
    ScaleWidth      =   7500
-   StartUpPosition =   3  'Windows Default
+   StartUpPosition =   2  'CenterScreen
    Begin VB.Timer tmrCloseScks 
       Interval        =   1000
       Left            =   1440
@@ -174,6 +174,9 @@ Begin VB.Form frmMain
          End
          Begin VB.Menu mnuDatabaseResetBans 
             Caption         =   "Bans"
+         End
+         Begin VB.Menu mnuDatabaseResetBugReports 
+            Caption         =   "Bug Reports"
          End
       End
    End
@@ -1079,6 +1082,32 @@ Private Sub mnuDatabaseResetBans_Click()
                         .UnbanDate = 0
                         .InUse = False
                     End If
+                End With
+            Next A
+        End If
+    End If
+End Sub
+
+Private Sub mnuDatabaseResetBugReports_Click()
+Dim A As Long
+    If MsgBox("Are you *sure* you wish to delete every Bug Report?", vbYesNo) = vbYes Then
+        If MsgBox("About to reset all Bug Reports -- continue?", vbYesNo) = vbYes Then
+            BugsRS.Close
+            Set BugsRS = Nothing
+            DB.TableDefs.Delete "Bugs"
+            CreateBugsTable
+            Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
+            BugsRS.Index = "ID"
+            For A = 1 To 500
+                With Bug(A)
+                    .PlayerUser = ""
+                    .PlayerName = ""
+                    .PlayerIP = ""
+                    .Title = ""
+                    .Description = ""
+                    .Status = 0
+                    .ResolverUser = ""
+                    .ResolverName = ""
                 End With
             Next A
         End If

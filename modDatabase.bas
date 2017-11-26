@@ -17,6 +17,7 @@ Public ScriptRS As Recordset
 Public MagicRS As Recordset
 Public PrefixRS As Recordset
 Public SuffixRS As Recordset
+Public BugsRS As Recordset
 
 Sub LoadDatabase()
     Dim A As Long, B As Long, St As String, St2 As String, bDataRSError As Boolean
@@ -123,6 +124,13 @@ Sub LoadDatabase()
         CreateSuffixTable
         Set SuffixRS = DB.TableDefs("Suffix").OpenRecordset(dbOpenTable)
     End If
+    
+    Err.Clear
+    Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
+    If Err.number > 0 Then
+        CreateBugsTable
+        Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
+    End If
 
     On Error GoTo 0
 
@@ -138,6 +146,7 @@ Sub LoadDatabase()
     ScriptRS.Index = "Name"
     PrefixRS.Index = "Number"
     SuffixRS.Index = "Number"
+    BugsRS.Index = "ID"
 
     If Startup = True Then
         frmLoading.lblStatus = "Loading World Data.."
@@ -171,7 +180,7 @@ ReloadData:
             !GuildUpkeepMembers = 1000
             !GuildUpkeepSprite = 1000
 
-            !ServerPort = 5750
+            !ServerPort = 5756
 
             !Cost_Per_Durability = 100
             !Cost_Per_Strength = 100
@@ -372,6 +381,27 @@ ReloadData:
             UserRS.MoveNext
         Wend
     End If
+    
+    If Startup = True Then
+        frmLoading.lblStatus = "Loading Bug Reports.."
+        frmLoading.lblStatus.Refresh
+    End If
+    
+    For A = 1 To 500
+        BugsRS.Seek "=", A
+        If BugsRS.NoMatch = False Then
+            With Bug(A)
+                .PlayerUser = BugsRS!PlayerUser
+                .PlayerName = BugsRS!PlayerName
+                .PlayerIP = BugsRS!PlayerIP
+                .Title = BugsRS!Title
+                .Description = BugsRS!Description
+                .Status = BugsRS!Status
+                .ResolverUser = BugsRS!ResolverUser
+                .ResolverName = BugsRS!ResolverName
+            End With
+        End If
+    Next A
 
     If Startup = True Then
         frmLoading.lblStatus = "Loading Halls.."
@@ -682,6 +712,7 @@ Sub CreateDatabase()
     CreateMagicTable
     CreatePrefixTable
     CreateSuffixTable
+    CreateBugsTable
 End Sub
 
 Sub CreateAccountsTable()
@@ -1416,6 +1447,51 @@ Sub CreateSuffixTable()
     NewIndex.Primary = True
     NewIndex.Unique = True
     Set NewField = NewIndex.CreateField("Number")
+    NewIndex.Fields.Append NewField
+    Td.Indexes.Append NewIndex
+
+    'Append Object Table
+    DB.TableDefs.Append Td
+End Sub
+
+Sub CreateBugsTable()
+    Dim Td As TableDef
+    Dim NewField As Field
+    Dim NewIndex As Index
+
+    'Create Objects Table
+    Set Td = DB.CreateTableDef("Bugs")
+
+    'Create Fields
+    Set NewField = Td.CreateField("ID", dbInteger)
+    Td.Fields.Append NewField
+    Set NewField = Td.CreateField("PlayerUser", dbText, 20)
+    NewField.AllowZeroLength = True
+    Td.Fields.Append NewField
+    Set NewField = Td.CreateField("PlayerName", dbText, 20)
+    NewField.AllowZeroLength = True
+    Td.Fields.Append NewField
+    Set NewField = Td.CreateField("PlayerIP", dbText, 20)
+    NewField.AllowZeroLength = True
+    Td.Fields.Append NewField
+    Set NewField = Td.CreateField("Title", dbText, 30)
+    Td.Fields.Append NewField
+    Set NewField = Td.CreateField("Description", dbText)
+    Td.Fields.Append NewField
+    Set NewField = Td.CreateField("Status", dbByte)
+    Td.Fields.Append NewField
+    Set NewField = Td.CreateField("ResolverUser", dbText, 20)
+    NewField.AllowZeroLength = True
+    Td.Fields.Append NewField
+    Set NewField = Td.CreateField("ResolverName", dbText, 20)
+    NewField.AllowZeroLength = True
+    Td.Fields.Append NewField
+    
+    'Create Indexes
+    Set NewIndex = Td.CreateIndex("ID")
+    NewIndex.Primary = True
+    NewIndex.Unique = True
+    Set NewField = NewIndex.CreateField("ID")
     NewIndex.Fields.Append NewField
     Td.Indexes.Append NewIndex
 

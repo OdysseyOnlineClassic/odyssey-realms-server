@@ -1,6 +1,16 @@
 Attribute VB_Name = "modSecurity"
 Option Explicit
 
+Function GetFreeBugSlot() As Long
+Dim A As Long
+    For A = 1 To 500
+        If Bug(A).Status = 0 Then
+            GetFreeBugSlot = A
+            Exit Function
+        End If
+    Next A
+End Function
+
 Function CheckBan(Index As Long, PlayerName As String, ComputerID As String, IPAddress As String) As Boolean
     Dim BanNum As Long
     BanNum = FindBan(PlayerName, ComputerID, IPAddress)

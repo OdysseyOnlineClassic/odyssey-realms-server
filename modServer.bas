@@ -59,6 +59,32 @@ Sub SaveObjects()
     DataRS.Update
 End Sub
 
+Sub SaveBugReports()
+Dim A As Long, B As Long, St As String
+    For A = 1 To 500
+        With Bug(A)
+            If .Status > 0 Then
+                BugsRS.Seek "=", A
+                If BugsRS.NoMatch Then
+                    BugsRS.AddNew
+                Else
+                    BugsRS.Edit
+                End If
+                BugsRS!ID = A
+                BugsRS!PlayerUser = .PlayerUser
+                BugsRS!PlayerName = .PlayerName
+                BugsRS!PlayerIP = .PlayerIP
+                BugsRS!Title = .Title
+                BugsRS!Description = .Description
+                BugsRS!Status = .Status
+                BugsRS!ResolverUser = .ResolverUser
+                BugsRS!ResolverName = .ResolverName
+                BugsRS.Update
+            End If
+        End With
+    Next A
+End Sub
+
 Sub CheckGuild(Index As Long)
     If Guild(Index).Name <> vbNullString Then
         If CountGuildMembers(Index) < 1 Then
@@ -2162,6 +2188,7 @@ Sub ShutdownServer()
 
     SaveFlags
     SaveObjects
+    SaveBugReports
 
     UserRS.Close
     GuildRS.Close

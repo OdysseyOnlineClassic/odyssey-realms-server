@@ -1617,6 +1617,18 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                 Else
                     Hacker Index, "A.46"
                 End If
+                
+            Case 23    'Report Bug
+                If Len(St) >= 34 Then
+                    A = GetFreeBugSlot
+                    Bug(A).PlayerUser = .User
+                    Bug(A).PlayerName = .Name
+                    Bug(A).PlayerIP = .IP
+                    B = InStr(St, Chr$(0))
+                    Bug(A).Title = Mid$(St, 1, B - 1)
+                    Bug(A).Description = Mid$(St, B + 1)
+                    Bug(A).Status = 1 'Open Status
+                End If
 
             Case 24    'Scan Echo
                 If Len(St) > 2 Then
@@ -1751,10 +1763,19 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                 End If
 
             Case 29    'Pong
-                If Len(St) = 0 Then
-
-                Else
+                If Len(St) <> 0 Then
                     SendSocket Index, Chr$(255)
+                End If
+                
+            Case 30    'Request Bug Report List
+                If Len(St) = 0 Then
+                    St1 = DoubleChar(1) + Chr$(55)
+                    For A = 1 To 500
+                        With Bug(A)
+                            If .Status > 0 Then St1 = St1 + DoubleChar(8 + Len(.Title) + Len(.Description) + Len(.PlayerUser) + Len(.PlayerName) + Len(.PlayerIP) + Len(.ResolverName)) + Chr$(55) + Chr$(A) + Chr$(.Status) + .Title + Chr$(0) + .Description + Chr$(0) + .PlayerUser + Chr$(0) + .PlayerName + Chr$(0) + .PlayerIP + Chr$(0) + .ResolverName
+                        End With
+                    Next A
+                    SendRaw Index, St1
                 End If
 
             Case 31    'Join Guild
