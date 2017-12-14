@@ -28,7 +28,6 @@ HelpFile=""
 NoControlUpgrade=1
 Title="server"
 ExeName32="server-classic.exe"
-Path32="\\VBOXSVR\build\issue-2-generic-events\server"
 Command32=""
 Name="Server"
 HelpContextID="0"

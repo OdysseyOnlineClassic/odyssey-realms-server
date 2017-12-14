@@ -16,6 +16,17 @@ Type MapStartLocationData
     Y As Byte
 End Type
 
+Type BugData
+    PlayerName As String
+    PlayerUser As String
+    PlayerIP As String
+    Title As String
+    Description As String
+    Status As Byte
+    ResolverName As String
+    ResolverUser As String
+End Type
+
 Type HallData
     Name As String
     Price As Long
@@ -416,4 +427,5 @@ Public Class(1 To 5) As ClassData
 Public Ban(1 To 50) As BanData
 Public ItemPrefix(1 To MaxModifications) As PrefixData
 Public ItemSuffix(1 To MaxModifications) As PrefixData
+Public Bug(1 To 500) As BugData
 Public NumUsers As Long

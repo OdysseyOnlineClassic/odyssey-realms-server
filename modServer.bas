@@ -6,7 +6,7 @@ Public Const TitleString = "Odyssey Realms - Classic"
 Public Const MaxUsers = 80
 Public Const DownloadSite = "http://www.odysseyclassic.info"
 
-Public Const CurrentClientVer = 2
+Public Const CurrentClientVer = 3
 Public Const PrefixSuffixChance = 40
 
 'Misc Variables
@@ -57,6 +57,32 @@ Sub SaveObjects()
     DataRS.Edit
     DataRS!ObjectData = St
     DataRS.Update
+End Sub
+
+Sub SaveBugReports()
+Dim A As Long, B As Long, St As String
+    For A = 1 To 500
+        With Bug(A)
+            If .Status > 0 Then
+                BugsRS.Seek "=", A
+                If BugsRS.NoMatch Then
+                    BugsRS.AddNew
+                Else
+                    BugsRS.Edit
+                End If
+                BugsRS!ID = A
+                BugsRS!PlayerUser = .PlayerUser
+                BugsRS!PlayerName = .PlayerName
+                BugsRS!PlayerIP = .PlayerIP
+                BugsRS!Title = .Title
+                BugsRS!Description = .Description
+                BugsRS!Status = .Status
+                BugsRS!ResolverUser = .ResolverUser
+                BugsRS!ResolverName = .ResolverName
+                BugsRS.Update
+            End If
+        End With
+    Next A
 End Sub
 
 Sub CheckGuild(Index As Long)
@@ -2162,6 +2188,7 @@ Sub ShutdownServer()
 
     SaveFlags
     SaveObjects
+    SaveBugReports
 
     UserRS.Close
     GuildRS.Close
