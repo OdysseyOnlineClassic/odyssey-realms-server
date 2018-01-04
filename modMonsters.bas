@@ -11,9 +11,9 @@ Public Function MoveMonsters(MapNum As Long, Tick As Currency) As String
                 If .Monster > 0 Then
                     If Tick > .MoveTimer Then
                         If ExamineBit(Monster(.Monster).flags, 2) = False Then
-                            .MoveTimer = Tick + 440
+                            .MoveTimer = Tick + 380
                         Else
-                            .MoveTimer = Tick + 240
+                            .MoveTimer = Tick + 190
                         End If
                         If .Target = 0 And .TargetIsMonster = False Then
                             St1 = St1 + MonsterHasNoTarget(MapNum, Tick, A)

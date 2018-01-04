@@ -1027,7 +1027,7 @@ Private Sub mnuDatabaseEmptyObjects_Click()
     If Not ObjectRS.BOF Then
         ObjectRS.MoveFirst
         While Not ObjectRS.EOF
-            If ObjectRS!Name = "" Then
+            If ObjectRS!ObjName = "" Then
                 ObjectRS.Delete
                 B = B + 1
             End If
@@ -1310,7 +1310,7 @@ Private Sub mnuDatabaseResetItem_Click()
     Else
         ObjectRS.Edit
     End If
-    ObjectRS!Name = ""
+    ObjectRS!ObjName = ""
     ObjectRS!Version = 0
     ObjectRS.Update
 End Sub

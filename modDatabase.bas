@@ -40,6 +40,26 @@ Sub LoadDatabase()
         End If
         CreateDatabase
     End If
+    
+    'Temporary conversion code to update current database object name length...can be removed after conversion successful
+    '--------------
+    Dim Td As TableDef
+    Dim NewField As Field
+    Dim ObjNameConverted As Boolean
+    
+    Set Td = DB.TableDefs("Objects")
+    On Error GoTo CreateObjName
+    Set NewField = Td.Fields("ObjName")
+    ObjNameConverted = True
+    GoTo SkipObjName
+CreateObjName:
+    Err.Clear
+    Set NewField = Td.CreateField("ObjName", dbText, 35)
+    NewField.AllowZeroLength = True
+    Td.Fields.Append NewField
+SkipObjName:
+    On Error GoTo 0
+    '--------------
 
     Err.Clear
     Set UserRS = DB.TableDefs("Accounts").OpenRecordset(dbOpenTable)
@@ -126,11 +146,14 @@ Sub LoadDatabase()
     End If
     
     Err.Clear
+    On Error GoTo Bugs
     Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
-    If Err.number > 0 Then
-        CreateBugsTable
-        Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
-    End If
+    GoTo SkipBugs
+Bugs:
+    Err.Clear
+    CreateBugsTable
+    Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
+SkipBugs:
 
     On Error GoTo 0
 
@@ -438,12 +461,23 @@ ReloadData:
         While ObjectRS.EOF = False
             A = ObjectRS!number
             If A > 0 Then
-                If ObjectRS!Name = "" Then
+                If ObjNameConverted = False And ObjectRS!Name = "" Then
+                    ObjectRS.Edit
+                    ObjectRS.Delete
+                ElseIf ObjNameConverted And ObjectRS!ObjName = "" Then
                     ObjectRS.Edit
                     ObjectRS.Delete
                 Else
                     With Object(A)
-                        .Name = ObjectRS!Name
+                        
+                        'More Temp code...
+                        '---------
+                        ObjectRS.Edit
+                        ObjectRS!ObjName = ObjectRS!Name
+                        ObjectRS.Update
+                        '---------
+                    
+                        .Name = ObjectRS!ObjName
                         .Picture = ObjectRS!Picture
                         .Type = ObjectRS!Type
                         .flags = ObjectRS!flags

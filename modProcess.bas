@@ -1590,7 +1590,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                             Else
                                 ObjectRS.Edit
                             End If
-                            ObjectRS!Name = .Name
+                            ObjectRS!ObjName = .Name
                             ObjectRS!Picture = .Picture
                             ObjectRS!Type = .Type
                             ObjectRS!flags = .flags
