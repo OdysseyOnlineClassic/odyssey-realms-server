@@ -1,4 +1,4 @@
-frmMain = 76, 34, 580, 485, , 154, 203, 1190, 983, C
+frmMain = 76, 34, 580, 485, C, 154, 203, 1190, 983, C
 frmLoading = 0, 0, 0, 0, C, 220, 290, 1256, 1070, C
 modServer = -14, 51, 736, 489, C
 modWinsock = 0, 0, 0, 0, C
@@ -6,7 +6,7 @@ modScript = -58, 60, 978, 840, C
 frmOptions = 264, 348, 1650, 1136, C, 242, 319, 1278, 1099, C
 modCompress = 220, 290, 1606, 1078, C
 modSecurity = 145, 145, 1002, 555, C
-modDatabase = -117, -16, 919, 764, 
+modDatabase = -117, -16, 919, 764, Z
 modProcess = 75, 75, 628, 526, 
 modSkills = 0, 0, 0, 0, C
 modArrays = 242, 319, 1628, 1107, C

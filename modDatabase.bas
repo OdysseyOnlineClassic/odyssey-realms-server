@@ -146,16 +146,10 @@ SkipObjName:
     End If
     
     Err.Clear
-    On Error GoTo Bugs
-    Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
-    GoTo SkipBugs
-Bugs:
-    Err.Clear
+    On Error Resume Next
     CreateBugsTable
-    Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
-SkipBugs:
-
     On Error GoTo 0
+    Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
 
     UserRS.Index = "User"
     ObjectRS.Index = "Number"

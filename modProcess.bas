@@ -1142,8 +1142,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     If A >= 1 And A <= 20 Then
                         If .Inv(A).Object > 0 Then
                             Parameter(0) = Index
-                            Parameter(1) = .Inv(A).Object
-                            If RunScript("USEOBJ") = 0 Then
+                            If RunScript("USEOBJ" + CStr(.Inv(A).Object)) = 0 Then
                                 If .Inv(A).Object > 0 Then
                                     If Not ExamineBit(Object(.Inv(A).Object).ClassReq, .Class - 1) = 255 Then
                                         Select Case Object(.Inv(A).Object).Type
