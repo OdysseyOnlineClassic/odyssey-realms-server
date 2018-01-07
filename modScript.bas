@@ -143,10 +143,8 @@ Function AttackMonster(ByVal Index As Long, ByVal MonsterIndex As Long, ByVal Da
                             End If
 
                             Parameter(0) = Index
-                            Parameter(1) = .Monster
-                            Parameter(2) = MapNum
-                            Parameter(3) = MonsterIndex
-                            RunScript "MONSTERDIE"
+                            Parameter(1) = MonsterIndex
+                            RunScript "MONSTERDIE" + CStr(.Monster)
                             
                             .Monster = 0
                             AttackMonster = True

@@ -638,8 +638,7 @@ Sub JoinMap(Index As Long)
         SendToMapAllBut MapNum, Index, Chr$(8) + Chr$(Index) + Chr$(.X) + Chr$(.Y) + Chr$(.D) + DoubleChar$(CLng(.Sprite)) + Chr$(.Status)
 
         Parameter(0) = Index
-        Parameter(1) = MapNum
-        RunScript "JOINMAP"
+        RunScript "JOINMAP" + CStr(MapNum)
     End With
 End Sub
 
@@ -1057,8 +1056,7 @@ Sub Partmap(Index As Long)
         MapNum = .Map
         If MapNum > 0 Then
             Parameter(0) = Index
-            Parameter(1) = MapNum
-            RunScript "PARTMAP"
+            RunScript "PARTMAP" + CStr(MapNum)
 
             With Map(MapNum)
                 .NumPlayers = .NumPlayers - 1

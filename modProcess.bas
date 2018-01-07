@@ -1716,10 +1716,8 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                                                         End If
 
                                                         Parameter(0) = Index
-                                                        Parameter(1) = .Monster
-                                                        Parameter(2) = MapNum
-                                                        Parameter(3) = A
-                                                        RunScript "MONSTERDIE"
+                                                        Parameter(1) = A
+                                                        RunScript "MONSTERDIE" + CStr(.Monster)
                                                         
                                                         .Monster = 0
                                                     End If
@@ -2925,8 +2923,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                             A = Asc(Mid$(St, 1, 1))
                             If ExamineBit(Magic(A).Class, .Class - 1) = True And .Level >= Magic(A).Level Then
                                 Parameter(0) = Index
-                                Parameter(1) = A
-                                RunScript "Spell"
+                                RunScript "Spell" + CStr(A)
                             End If
                         End If
                     End If
