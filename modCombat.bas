@@ -181,10 +181,8 @@ Sub ProjectileAttackMonster(Index As Long, A As Long)
                                     End If
 
                                     Parameter(0) = Index
-                                    Parameter(1) = .Monster
-                                    Parameter(2) = MapNum
-                                    Parameter(3) = A
-                                    RunScript "MONSTERDIE"
+                                    Parameter(1) = A
+                                    RunScript "MONSTERDIE" + CStr(.Monster)
 
                                     .Monster = 0
                                 End If
@@ -350,10 +348,8 @@ Sub MagicAttackMonster(Index As Long, A As Long, MagicDamage As Long)
                                     End If
 
                                     Parameter(0) = Index
-                                    Parameter(1) = .Monster
-                                    Parameter(2) = MapNum
-                                    Parameter(3) = A
-                                    RunScript "MONSTERDIE"
+                                    Parameter(1) = A
+                                    RunScript "MONSTERDIE" + CStr(.Monster)
 
                                     .Monster = 0
                                 End If

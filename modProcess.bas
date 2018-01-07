@@ -1716,10 +1716,8 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                                                         End If
 
                                                         Parameter(0) = Index
-                                                        Parameter(1) = .Monster
-                                                        Parameter(2) = MapNum
-                                                        Parameter(3) = A
-                                                        RunScript "MONSTERDIE"
+                                                        Parameter(1) = A
+                                                        RunScript "MONSTERDIE" + CStr(.Monster)
                                                         
                                                         .Monster = 0
                                                     End If
@@ -2925,8 +2923,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                             A = Asc(Mid$(St, 1, 1))
                             If ExamineBit(Magic(A).Class, .Class - 1) = True And .Level >= Magic(A).Level Then
                                 Parameter(0) = Index
-                                Parameter(1) = A
-                                RunScript "Spell"
+                                RunScript "Spell" + CStr(A)
                             End If
                         End If
                     End If
@@ -3078,6 +3075,12 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     SetPlayerSprite Index, 0
                 End If
             Case 96    'Ping
+                If .LastPing > 0 Then
+                    .CurPing = 1 + (.CurPing Mod 5)
+                    .Ping(.CurPing) = timeGetTime - .LastPing
+                End If
+                CheckPingSpeed Index
+                .LastPing = timeGetTime
                 SendSocket Index, Chr$(149)
             Case 97    'Sell Item
                 If Len(St) = 2 Then

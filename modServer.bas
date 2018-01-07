@@ -638,8 +638,7 @@ Sub JoinMap(Index As Long)
         SendToMapAllBut MapNum, Index, Chr$(8) + Chr$(Index) + Chr$(.X) + Chr$(.Y) + Chr$(.D) + DoubleChar$(CLng(.Sprite)) + Chr$(.Status)
 
         Parameter(0) = Index
-        Parameter(1) = MapNum
-        RunScript "JOINMAP"
+        RunScript "JOINMAP" + CStr(MapNum)
     End With
 End Sub
 
@@ -1057,8 +1056,7 @@ Sub Partmap(Index As Long)
         MapNum = .Map
         If MapNum > 0 Then
             Parameter(0) = Index
-            Parameter(1) = MapNum
-            RunScript "PARTMAP"
+            RunScript "PARTMAP" + CStr(MapNum)
 
             With Map(MapNum)
                 .NumPlayers = .NumPlayers - 1
@@ -1840,6 +1838,12 @@ Sub CloseClientSocket(Index As Long)
                 .MagicLevel(A).Level = 0
             Next A
             .Bank = 0
+            
+            .CurPing = 0
+            For A = 1 To 5
+                .Ping(A) = 0
+            Next A
+            .LastPing = 0
 
             For A = 1 To MaxUsers
                 If CloseSocketQue(A) = Index Then
