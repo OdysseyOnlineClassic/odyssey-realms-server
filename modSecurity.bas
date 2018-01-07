@@ -11,6 +11,26 @@ Dim A As Long
     Next A
 End Function
 
+Sub CheckPingSpeed(Index As Long)
+Dim A As Long, B As Long
+    With Player(Index)
+        For A = 1 To 5
+            If .Ping(A) = 0 Then Exit Sub 'Only check if all of the ping arrays has been filled with values to compare.
+        Next A
+        For A = 1 To 5
+            B = B + .Ping(A)
+        Next A
+        B = 5000 - (B / 5) 'B/5 = average interval frequency. Near to or above 5000 is in sync, if significantly lower frequency then possible speed hack
+        If B > 50 And B < 250 Then
+            SendToGods Chr$(16) + Chr$(0) + "Warning: Possible speed hack detected from player - " + .Name + " " + CStr(B) + "ms less than the required average ping frequency!"
+        ElseIf B >= 250 Then
+            PrintCheat .Name + ": Possible Speed Hack, running at " + CStr(B) + "ms less than the required average ping frequency!"
+            PrintLog "Speed hack detected from " + .Name
+            BootPlayer Index, 0, "Speed hack detected!"
+        End If
+    End With
+End Sub
+
 Function CheckBan(Index As Long, PlayerName As String, ComputerID As String, IPAddress As String) As Boolean
     Dim BanNum As Long
     BanNum = FindBan(PlayerName, ComputerID, IPAddress)

@@ -199,6 +199,9 @@ Type PlayerData
     CurrentRepairTar As Integer
 
     SpeedStrikes As Long
+    CurPing As Long
+    Ping(1 To 5) As Long
+    LastPing As Long
 
     'Database Data
     Bookmark As Variant

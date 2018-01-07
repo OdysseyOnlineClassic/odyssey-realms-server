@@ -3078,6 +3078,12 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     SetPlayerSprite Index, 0
                 End If
             Case 96    'Ping
+                If .LastPing > 0 Then
+                    .CurPing = 1 + (.CurPing Mod 5)
+                    .Ping(.CurPing) = timeGetTime - .LastPing
+                End If
+                CheckPingSpeed Index
+                .LastPing = timeGetTime
                 SendSocket Index, Chr$(149)
             Case 97    'Sell Item
                 If Len(St) = 2 Then

@@ -1840,6 +1840,12 @@ Sub CloseClientSocket(Index As Long)
                 .MagicLevel(A).Level = 0
             Next A
             .Bank = 0
+            
+            .CurPing = 0
+            For A = 1 To 5
+                .Ping(A) = 0
+            Next A
+            .LastPing = 0
 
             For A = 1 To MaxUsers
                 If CloseSocketQue(A) = Index Then
