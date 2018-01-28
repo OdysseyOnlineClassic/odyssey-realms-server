@@ -181,41 +181,41 @@ ReloadData:
             !MapResetTime = 120000
             !ObjResetTime = 300000
 
-            !ObjMoney = 6
-            !ObjSmallFish = 153
-            !ObjMediumFish = 152
-            !ObjLargeFish = 148
-            !ObjLowOre = 216
-            !ObjMedOre = 217
-            !ObjHighOre = 218
-            !ObjLumber = 215
+            !ObjMoney = 1
+            !ObjSmallFish = 2
+            !ObjMediumFish = 3
+            !ObjLargeFish = 4
+            !ObjLowOre = 5
+            !ObjMedOre = 6
+            !ObjHighOre = 7
+            !ObjLumber = 8
 
-            !MaxLevel = 100
+            !MaxLevel = 80
             !EliteLevel = 60
             !DeathTime = 15
             
-            !GuildUpkeepMembers = 1000
-            !GuildUpkeepSprite = 1000
+            !GuildUpkeepMembers = 5000
+            !GuildUpkeepSprite = 50000
 
-            !ServerPort = 5756
+            !ServerPort = 5750
 
-            !Cost_Per_Durability = 100
-            !Cost_Per_Strength = 100
-            !Cost_Per_Modifier = 100
+            !Cost_Per_Durability = 10000
+            !Cost_Per_Strength = 10000
+            !Cost_Per_Modifier = 10000
 
-            !GuildJoinLevel = 1
-            !GuildJoinPrice = 1
-            !GuildNewLevel = 1
-            !GuildNewPrice = 1
+            !GuildJoinLevel = 60
+            !GuildJoinPrice = 50000
+            !GuildNewLevel = 80
+            !GuildNewPrice = 500000
             !GuildMaxMembers = 20
 
-            !StatStrength = 10
-            !StatEndurance = 10
-            !StatIntelligence = 10
-            !StatConcentration = 10
-            !StatConstitution = 10
-            !StatStamina = 10
-            !StatWisdom = 10
+            !StatStrength = 0
+            !StatEndurance = 0
+            !StatIntelligence = 0
+            !StatConcentration = 0
+            !StatConstitution = 0
+            !StatStamina = 0
+            !StatWisdom = 0
 
             !MOTD = vbNullString
             !LastUpdate = CLng(Date)
