@@ -195,7 +195,7 @@ ReloadData:
             !DeathTime = 15
             
             !GuildUpkeepMembers = 5000
-            !GuildUpkeepSprite = 50000
+            !GuildUpkeepSprite = 5000
 
             !ServerPort = 5750
 
