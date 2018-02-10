@@ -1024,8 +1024,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                         A = SysAllocStringByteLen(St, Len(St))
                         Parameter(0) = Index
                         Parameter(1) = A
-                        Parameter(2) = MapNum
-                        B = RunScript("MAPSAY")
+                        B = RunScript("MAPSAY" + CStr(MapNum))
                         SysFreeString A
 
                         PrintChat "Say", .Name + " says, '" + St + "'"
