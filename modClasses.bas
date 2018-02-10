@@ -2,7 +2,7 @@ Attribute VB_Name = "modClasses"
 Option Explicit
 
 Sub CreateClassData()
-    If World.ServerPort = 5756 Then 'Class Stats
+    If World.ServerPort > 1 Then 'Class Stats
         With Class(1)    'Knight
             .StartHP = 20
             .StartEnergy = 15

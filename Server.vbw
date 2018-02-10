@@ -1,6 +1,6 @@
 frmMain = 76, 34, 580, 485, C, 154, 203, 1190, 983, C
 frmLoading = 0, 0, 0, 0, C, 220, 290, 1256, 1070, C
-modServer = -14, 51, 736, 489, 
+modServer = -14, 51, 736, 489, C
 modWinsock = 0, 0, 0, 0, C
 modScript = -29, 42, 1007, 822, 
 frmOptions = 264, 348, 1650, 1136, C, 242, 319, 1278, 1099, C
@@ -17,5 +17,5 @@ modLogging = 0, 0, 0, 0, C
 modLists = 175, 175, 712, 610, C
 modConstants = 0, 0, 0, 0, C
 modAPI = 0, 0, 0, 0, C
-modMonsters = -22, 53, 1014, 833, 
-modClasses = 0, 0, 0, 0, C
+modMonsters = -22, 53, 1014, 833, C
+modClasses = 44, 44, 591, 490, C
