@@ -465,9 +465,9 @@ Private Function MonsterAttack(MapNum As Long, Tick As Currency, MonsterIndex As
                         St1 = St1 + DoubleChar(2) + Chr$(41) + Chr$(MonsterIndex)
                         With Player(.Target)
                             If C >= .HP Then
-                                Parameter(0) = Map(MapNum).Monster(MonsterIndex).Target
-                                Parameter(1) = MapNum
-                                Parameter(2) = MonsterIndex
+                                Parameter(0) = Map(MapNum).Monster(MonsterIndex).Monster
+                                Parameter(1) = MonsterIndex
+                                Parameter(2) = Map(MapNum).Monster(MonsterIndex).Target
                                 If RunScript("MONSTERKILL" + CStr(Map(MapNum).Monster(MonsterIndex).Monster)) = 0 Then
                                     'Player Died
                                     SendSocket Map(MapNum).Monster(MonsterIndex).Target, Chr$(53) + DoubleChar$(CLng(Map(MapNum).Monster(MonsterIndex).Monster))    'Monster Killed You

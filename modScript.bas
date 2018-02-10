@@ -1322,8 +1322,9 @@ Function MonsterAttackPlayer(ByVal TheMap As Long, ByVal MonsterIndex As Long, B
                     SendToMap TheMap, Chr$(41) + Chr$(MonsterIndex)
                     With Player(Index)
                         If C >= .HP Then
-                            Parameter(0) = Index
+                            Parameter(0) = Map(.Map).Monster(MonsterIndex).Monster
                             Parameter(1) = MonsterIndex
+                            Parameter(2) = Index
                             ScriptRunning = False
                             If RunScript("MONSTERKILL" + CStr(Map(.Map).Monster(MonsterIndex).Monster)) = 0 Then
                                 'Player Died
@@ -1360,8 +1361,9 @@ Function MonsterMagicAttackPlayer(ByVal TheMap As Long, ByVal MonsterIndex As Lo
                     SendToMap TheMap, Chr$(41) + Chr$(MonsterIndex)
                     With Player(Index)
                         If C >= .HP Then
-                            Parameter(0) = Index
+                            Parameter(0) = Map(.Map).Monster(MonsterIndex).Monster
                             Parameter(1) = MonsterIndex
+                            Parameter(2) = Index
                             ScriptRunning = False
                             If RunScript("MONSTERKILL" + CStr(Map(.Map).Monster(MonsterIndex).Monster)) = 0 Then
                                 'Player Died
