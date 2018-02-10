@@ -25,7 +25,7 @@ Dim A As Long, B As Long
             .SpeedStrikes = .SpeedStrikes + 1
             If .SpeedStrikes >= 2 Then
                 SendToGods Chr$(16) + Chr$(0) + "Warning: Possible speed hack detected from player - " + .Name + " " + CStr(B) + "ms faster than the required average ping frequency!"
-            ElseIf .SpeedStrikes >= 5 Then
+            ElseIf .SpeedStrikes >= 6 Then
                 BootPlayer Index, 0, "Speed Hack Detected!"
             End If
         Else
