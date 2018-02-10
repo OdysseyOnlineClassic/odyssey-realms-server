@@ -23,7 +23,7 @@ Dim A As Long, B As Long
         B = 5000 - (B / 5) 'B/5 = average interval frequency. Near to or above 5000 is in sync, if significantly lower frequency then possible speed hack
         If B >= 50 Then
             .SpeedStrikes = .SpeedStrikes + 1
-            If .SpeedStrikes >= 2 Then
+            If .SpeedStrikes >= 2 And .SpeedStrikes <= 5 Then
                 SendToGods Chr$(16) + Chr$(0) + "Warning: Possible speed hack detected from player - " + .Name + " " + CStr(B) + "ms faster than the required average ping frequency!"
             ElseIf .SpeedStrikes >= 6 Then
                 BootPlayer Index, 0, "Speed Hack Detected!"
@@ -147,7 +147,6 @@ Sub BootPlayer(A As Long, Index As Long, Reason As String)
                 Else
                     SendToGods Chr$(56) + Chr$(15) + "User " + Chr$(34) + .User + Chr$(34) + " with name " + Chr$(34) + .Name + Chr$(34) + " has been booted: " + Reason
                 End If
-                AddSocketQue A
             Else
                 SendSocket A, Chr$(67) + Chr$(Index)
                 If .Mode = modePlaying Then
@@ -155,8 +154,8 @@ Sub BootPlayer(A As Long, Index As Long, Reason As String)
                 Else
                     SendAllBut A, Chr$(56) + Chr$(15) + "User " + Chr$(34) + .User + Chr$(34) + " with name " + Chr$(34) + .Name + Chr$(34) + " has been booted!"
                 End If
-                AddSocketQue A
             End If
+            AddSocketQue A
         End If
     End With
 End Sub
