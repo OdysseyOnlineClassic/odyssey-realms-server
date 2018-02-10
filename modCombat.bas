@@ -142,8 +142,7 @@ Sub ProjectileAttackMonster(Index As Long, A As Long)
                         Parameter(0) = Index
                         Parameter(1) = Map(.Map).Monster(A).Monster
                         Parameter(2) = .Map
-                        Parameter(3) = A
-                        If RunScript("ATTACKMONSTER") = 0 Then
+                        If RunScript("ATTACKMONSTER" + CStr(A)) = 0 Then
                             With Monster(Map(.Map).Monster(A).Monster)
                                 'Hit Target
                                 B = 0
@@ -309,8 +308,7 @@ Sub MagicAttackMonster(Index As Long, A As Long, MagicDamage As Long)
                         Parameter(0) = Index
                         Parameter(1) = Map(.Map).Monster(A).Monster
                         Parameter(2) = .Map
-                        Parameter(3) = A
-                        If RunScript("ATTACKMONSTER") = 0 Then
+                        If RunScript("ATTACKMONSTER" + CStr(A)) = 0 Then
                             With Monster(Map(.Map).Monster(A).Monster)
                                 'Hit Target
                                 B = 0
@@ -587,7 +585,7 @@ Sub CombatAttackPlayer(Index As Long, A As Long, Damage As Long)
                                 If Player(A).Guild > 0 Or ExamineBit(Map(.Map).flags, 6) = True Then
                                     Parameter(0) = Index
                                     Parameter(1) = A
-                                    If RunScript("AttackPlayer") = 0 Then
+                                    If RunScript("ATTACKPLAYER") = 0 Then
                                         With Player(A)
                                             C = PlayerArmor(A, Damage)
                                             If C < 0 Then C = 0

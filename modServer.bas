@@ -1121,9 +1121,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
                 C = 0
                 If .EquippedObject(6).Object = A Then C = 1
                 Parameter(0) = Index
-                Parameter(1) = .Inv(A).Object
-                Parameter(2) = .Inv(A).Value
-                If Not ExamineBit(Object(.Inv(A).Object).flags, 2) = 255 And C = 1 And RunScript("DROPOBJ") = 0 Then
+                Parameter(1) = .Inv(A).Value
+                If Not ExamineBit(Object(.Inv(A).Object).flags, 2) = 255 And C = 1 And RunScript("DROPOBJ" + CStr(.Inv(A).Object)) = 0 Then
                     DontDropOnGround = False
                     If Killer > -1 And Not Killer = Index Then
                         Select Case Object(.Inv(A).Object).Type
@@ -1136,9 +1135,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
 
                         If D > 0 Then
                             Parameter(0) = Killer
-                            Parameter(1) = .Inv(A).Object
-                            Parameter(2) = .Inv(A).Value
-                            If RunScript("GETOBJ") = 0 Then
+                            Parameter(1) = .Inv(A).Value
+                            If RunScript("GETOBJ" + CStr(.Inv(A).Object)) = 0 Then
                                 Select Case Object(.Inv(A).Object).Type
                                     Case 6, 11
                                         If Player(Killer).Inv(D).Object > 0 Then
@@ -1189,9 +1187,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
         RandomDrop = Random(5) + 1
         If .EquippedObject(RandomDrop).Object > 0 Then
             Parameter(0) = Index
-            Parameter(1) = .EquippedObject(RandomDrop).Object
-            Parameter(2) = .EquippedObject(RandomDrop).Value
-            If Not ExamineBit(Object(.EquippedObject(RandomDrop).Object).flags, 2) And RunScript("DROPOBJ") = 0 Then
+            Parameter(1) = .EquippedObject(RandomDrop).Value
+            If Not ExamineBit(Object(.EquippedObject(RandomDrop).Object).flags, 2) And RunScript("DROPOBJ" + CStr(.EquippedObject(RandomDrop).Object)) = 0 Then
                 DontDropOnGround = False
                 If Killer > -1 And Not Killer = Index Then
                     Select Case Object(.EquippedObject(RandomDrop).Object).Type
@@ -1204,9 +1201,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
 
                     If D > 0 Then
                         Parameter(0) = Killer
-                        Parameter(1) = .EquippedObject(RandomDrop).Object
-                        Parameter(2) = .EquippedObject(RandomDrop).Value
-                        If RunScript("GETOBJ") = 0 Then
+                        Parameter(1) = .EquippedObject(RandomDrop).Value
+                        If RunScript("GETOBJ" + CStr(.EquippedObject(RandomDrop).Object)) = 0 Then
                             Select Case Object(.EquippedObject(RandomDrop).Object).Type
                             Case 6, 11
                                 If Player(Killer).Inv(D).Object > 0 Then
@@ -1252,9 +1248,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
                 For A = 1 To 5
                     If .EquippedObject(A).Object > 0 Then
                         Parameter(0) = Index
-                        Parameter(1) = .EquippedObject(A).Object
-                        Parameter(2) = .EquippedObject(A).Value
-                        If Not ExamineBit(Object(.EquippedObject(A).Object).flags, 2) And RunScript("DROPOBJ") = 0 Then
+                        Parameter(1) = .EquippedObject(A).Value
+                        If Not ExamineBit(Object(.EquippedObject(A).Object).flags, 2) And RunScript("DROPOBJ" + CStr(.EquippedObject(A).Object)) = 0 Then
                             DontDropOnGround = False
 
                             If Killer > -1 And Not Killer = Index Then
@@ -1268,9 +1263,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
 
                                 If D > 0 Then
                                     Parameter(0) = Killer
-                                    Parameter(1) = .EquippedObject(A).Object
-                                    Parameter(2) = .EquippedObject(A).Value
-                                    If RunScript("GETOBJ") = 0 Then
+                                    Parameter(1) = .EquippedObject(A).Value
+                                    If RunScript("GETOBJ" + CStr(.EquippedObject(A).Object)) = 0 Then
                                         Select Case Object(.EquippedObject(A).Object).Type
                                         Case 6, 11
                                             If Player(Killer).Inv(D).Object > 0 Then
@@ -1321,9 +1315,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
             For A = 1 To 5
                 If .EquippedObject(A).Object > 0 Then
                     Parameter(0) = Index
-                    Parameter(1) = .EquippedObject(A).Object
-                    Parameter(2) = .EquippedObject(A).Value
-                    If Not ExamineBit(Object(.EquippedObject(A).Object).flags, 2) = 255 And RunScript("DROPOBJ") = 0 Then
+                    Parameter(1) = .EquippedObject(A).Value
+                    If Not ExamineBit(Object(.EquippedObject(A).Object).flags, 2) = 255 And RunScript("DROPOBJ" + CStr(.EquippedObject(A).Object)) = 0 Then
                         DontDropOnGround = False
 
                         If Killer > -1 And Not Killer = Index Then
@@ -1337,9 +1330,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
 
                             If D > 0 Then
                                 Parameter(0) = Killer
-                                Parameter(1) = .EquippedObject(A).Object
-                                Parameter(2) = .EquippedObject(A).Value
-                                If RunScript("GETOBJ") = 0 Then
+                                Parameter(1) = .EquippedObject(A).Value
+                                If RunScript("GETOBJ" + CStr(.EquippedObject(A).Object)) = 0 Then
                                     Select Case Object(.EquippedObject(A).Object).Type
                                     Case 6, 11
                                         If Player(Killer).Inv(D).Object > 0 Then
@@ -1391,10 +1383,9 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
             Randomize
             If .Inv(A).Object > 0 Then
                 Parameter(0) = Index
-                Parameter(1) = .Inv(A).Object
-                Parameter(2) = .Inv(A).Value
+                Parameter(1) = .Inv(A).Value
                 Randomize
-                If (Rnd <= 0.3) And RunScript("DROPOBJ") = 0 Then
+                If (Rnd <= 0.3) And RunScript("DROPOBJ" + CStr(.Inv(A).Object)) = 0 Then
                     If Not ExamineBit(Object(.Inv(A).Object).flags, 2) = 255 Then
                         DontDropOnGround = False
 
@@ -1409,9 +1400,8 @@ Function PlayerDied(Index As Long, Killer As Long) As Boolean
 
                             If D > 0 Then
                                 Parameter(0) = Killer
-                                Parameter(1) = .Inv(A).Object
-                                Parameter(2) = .Inv(A).Value
-                                If RunScript("GETOBJ") = 0 Then
+                                Parameter(1) = .Inv(A).Value
+                                If RunScript("GETOBJ" + CStr(.Inv(A).Object)) = 0 Then
                                     Select Case Object(.Inv(A).Object).Type
                                     Case 6, 11
                                         If Player(Killer).Inv(D).Object > 0 Then
@@ -3139,9 +3129,8 @@ Sub ProcessBankData(Index As Long, St As String)
                     Next E
                     If D >= 0 Then
                         Parameter(0) = Index
-                        Parameter(1) = .Inv(A).Object
-                        Parameter(2) = .Inv(A).Value
-                        If RunScript("DROPOBJ") = 0 Then
+                        Parameter(1) = .Inv(A).Value
+                        If RunScript("DROPOBJ" + CStr(.Inv(A).Object)) = 0 Then
                             If Not Object(.Inv(A).Object).Type = 6 Then
                                 .ItemBank(D).Object = .Inv(A).Object
                                 .ItemBank(D).Value = .Inv(A).Value
@@ -3197,9 +3186,8 @@ Sub ProcessBankData(Index As Long, St As String)
                     End Select
                     If B > 0 Then    'Has Room
                         Parameter(0) = Index
-                        Parameter(1) = .ItemBank(A).Object
-                        Parameter(2) = .ItemBank(A).Value
-                        If RunScript("GETOBJ") = 0 Then
+                        Parameter(1) = .ItemBank(A).Value
+                        If RunScript("GETOBJ" + CStr(.ItemBank(A).Object)) = 0 Then
                             Select Case Object(.ItemBank(A).Object).Type
                             Case 6, 11
                                 If .Inv(B).Object > 0 And .Inv(B).Object = .ItemBank(A).Object And .Inv(B).Value > 0 Then
@@ -3275,9 +3263,8 @@ Sub ProcessBankData(Index As Long, St As String)
                     If D >= 0 Then
                         If B > 0 And .Inv(A).Value >= B Then
                             Parameter(0) = Index
-                            Parameter(1) = .Inv(A).Object
-                            Parameter(2) = B
-                            If RunScript("DROPOBJ") = 0 Then
+                            Parameter(1) = B
+                            If RunScript("DROPOBJ" + CStr(.Inv(A).Object)) = 0 Then
 
                                 If .ItemBank(D).Object > 0 And .ItemBank(D).Value > 0 Then
                                     .ItemBank(D).Value = .ItemBank(D).Value + B
@@ -3317,9 +3304,8 @@ Sub ProcessBankData(Index As Long, St As String)
                         C = FindInvObject(Index, D)
                         If C > 0 Then
                             Parameter(0) = Index
-                            Parameter(1) = D
-                            Parameter(2) = B
-                            If RunScript("GETOBJ") = 0 Then
+                            Parameter(1) = B
+                            If RunScript("GETOBJ" + CStr(D)) = 0 Then
                                 .ItemBank(A).Value = .ItemBank(A).Value - B
                                 If .ItemBank(A).Value = 0 Then
                                     .ItemBank(A).Object = 0
@@ -3334,9 +3320,8 @@ Sub ProcessBankData(Index As Long, St As String)
                             C = FreeInvNum(Index)
                             If C > 0 Then
                                 Parameter(0) = Index
-                                Parameter(1) = D
-                                Parameter(2) = B
-                                If RunScript("GETOBJ") = 0 Then
+                                Parameter(1) = B
+                                If RunScript("GETOBJ" + CStr(D)) = 0 Then
                                     .ItemBank(A).Value = .ItemBank(A).Value - B
                                     If .ItemBank(A).Value = 0 Then
                                         .ItemBank(A).Object = 0

@@ -113,10 +113,8 @@ Function AttackMonster(ByVal Index As Long, ByVal MonsterIndex As Long, ByVal Da
             If Map(MapNum).Monster(MonsterIndex).Monster > 0 Then
                 ScriptRunning = False
                 Parameter(0) = Index
-                Parameter(1) = Map(MapNum).Monster(MonsterIndex).Monster
-                Parameter(2) = MapNum
-                Parameter(3) = MonsterIndex
-                If RunScript("ATTACKMONSTER") = 0 Then
+                Parameter(1) = MonsterIndex
+                If RunScript("ATTACKMONSTER" + CStr(Map(MapNum).Monster(MonsterIndex).Monster)) = 0 Then
                     If Damage < 0 Then Damage = 0
                     If Damage > 255 Then Damage = 255
                     With Map(MapNum).Monster(MonsterIndex)
@@ -1325,11 +1323,9 @@ Function MonsterAttackPlayer(ByVal TheMap As Long, ByVal MonsterIndex As Long, B
                     With Player(Index)
                         If C >= .HP Then
                             Parameter(0) = Index
-                            Parameter(1) = Map(.Map).Monster(MonsterIndex).Monster
-                            Parameter(2) = TheMap
-                            Parameter(3) = MonsterIndex
+                            Parameter(1) = MonsterIndex
                             ScriptRunning = False
-                            If RunScript("MONSTERKILL") = 0 Then
+                            If RunScript("MONSTERKILL" + CStr(Map(.Map).Monster(MonsterIndex).Monster)) = 0 Then
                                 'Player Died
                                 Map(.Map).Monster(MonsterIndex).Target = 0
                                 SendSocket Index, Chr$(53) + DoubleChar$(CLng(Map(.Map).Monster(MonsterIndex).Monster))    'Monster Killed You
@@ -1365,11 +1361,9 @@ Function MonsterMagicAttackPlayer(ByVal TheMap As Long, ByVal MonsterIndex As Lo
                     With Player(Index)
                         If C >= .HP Then
                             Parameter(0) = Index
-                            Parameter(1) = Map(.Map).Monster(MonsterIndex).Monster
-                            Parameter(2) = TheMap
-                            Parameter(3) = MonsterIndex
+                            Parameter(1) = MonsterIndex
                             ScriptRunning = False
-                            If RunScript("MONSTERKILL") = 0 Then
+                            If RunScript("MONSTERKILL" + CStr(Map(.Map).Monster(MonsterIndex).Monster)) = 0 Then
                                 'Player Died
                                 Map(.Map).Monster(MonsterIndex).Target = 0
                                 SendSocket Index, Chr$(53) + DoubleChar$(CLng(Map(.Map).Monster(MonsterIndex).Monster))    'Monster Killed You
