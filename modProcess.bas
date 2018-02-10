@@ -1077,9 +1077,8 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                         If C > 0 Then
                             If Map(MapNum).Object(A).X = .X And Map(MapNum).Object(A).Y = .Y Then
                                 Parameter(0) = Index
-                                Parameter(1) = C
-                                Parameter(2) = Map(MapNum).Object(A).Value
-                                If RunScript("GETOBJ") = 0 Then
+                                Parameter(1) = Map(MapNum).Object(A).Value
+                                If RunScript("GETOBJ" + CStr(C)) = 0 Then
                                     If .Access > 0 Then PrintGod .User, " (Pick up) Object: " + Object(Map(MapNum).Object(A).Object).Name + "   Value: " + CStr(Map(MapNum).Object(A).Value)
                                     PrintItem .User + " - " + .Name + " (Pick up) " + Object(Map(MapNum).Object(A).Object).Name + " (" + CStr(Map(MapNum).Object(A).Value) + ") - Map: " + CStr(.Map)
                                     If Object(C).Type = 6 Or Object(C).Type = 11 Then
@@ -1664,10 +1663,8 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                                     If Sqr((CSng(Map(MapNum).Monster(A).X) - CSng(.X)) ^ 2 + (CSng(Map(MapNum).Monster(A).Y) - CSng(.Y)) ^ 2) <= LagHitDistance Then
                                         If NoDirectionalWalls(CLng(.Map), CLng(.X), CLng(.Y), CLng(.D)) Then
                                             Parameter(0) = Index
-                                            Parameter(1) = Map(MapNum).Monster(A).Monster
-                                            Parameter(2) = .Map
-                                            Parameter(3) = A
-                                            If RunScript("ATTACKMONSTER") = 0 Then
+                                            Parameter(1) = A
+                                            If RunScript("ATTACKMONSTER" + CStr(Map(MapNum).Monster(A).Monster)) = 0 Then
                                         
                                                 .TimeLeft = .LastMsg + 850
                                                 With Monster(Map(MapNum).Monster(A).Monster)
@@ -2451,13 +2448,11 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                                         End If
                                         If I > 0 Then
                                             Parameter(0) = Index
-                                            Parameter(1) = C
-                                            Parameter(2) = D
-                                            GetObjResult = RunScript("GetObj")
+                                            Parameter(1) = D
+                                            GetObjResult = RunScript("GETOBJ" + CStr(C))
                                             
-                                            Parameter(1) = E
-                                            Parameter(2) = F
-                                            DropObjResult = RunScript("DropObj")
+                                            Parameter(1) = F
+                                            DropObjResult = RunScript("DROPOBJ" + CStr(E))
                                                                                         
                                             If GetObjResult = 0 And DropObjResult = 0 Then
                                                 With .Inv(G)
@@ -3577,9 +3572,8 @@ Sub ProcessDropObject(Index As Long, MapNum As Long, St As String)
         End If 'Object Type
 
         Parameter(0) = Index
-        Parameter(1) = Obj
-        Parameter(2) = Value
-        If Not RunScript("DROPOBJ") = 0 Then
+        Parameter(1) = Value
+        If Not RunScript("DROPOBJ" + CStr(Obj)) = 0 Then
             Exit Sub
         End If
         
