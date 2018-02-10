@@ -1023,8 +1023,8 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     If Len(St) >= 1 And Len(St) <= 512 Then
                         A = SysAllocStringByteLen(St, Len(St))
                         Parameter(0) = Index
-                        Parameter(1) = MapNum
-                        Parameter(2) = A
+                        Parameter(1) = A
+                        Parameter(2) = MapNum
                         B = RunScript("MAPSAY")
                         SysFreeString A
 

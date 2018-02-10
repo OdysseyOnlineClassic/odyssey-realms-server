@@ -5,3 +5,5 @@ server.exe
 localhost
 odyssey.ini
 MSSCCPRJ.SCC
+*.vbw
+Server.vbw
