@@ -3033,16 +3033,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                     Parameter(3) = B
                     RunScript ("MAPCLICK")
                 End If
-            Case 92    'Speedhack Check
-                A = Tick - .SpeedHackTimer
-                .SpeedHackTimer = Tick
-                If A < 90000 Then
-                    PrintCheat "Speed hack timer " + .Name + " " + CStr(A) + " ms out of 120000"
-                    .SpeedStrikes = .SpeedStrikes + 1
-                    If .SpeedStrikes > 5 Then
-                        Hacker Index, "Speedhack Detected"
-                    End If
-                End If
+            Case 92    'Free Packet
             Case 93    'Change Guild MOTD
                 If .Guild > 0 And .GuildRank >= 2 And Len(St) > 1 Then
                     Guild(.Guild).MOTD = Mid$(St, 1)

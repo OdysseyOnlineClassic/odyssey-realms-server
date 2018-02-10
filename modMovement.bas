@@ -34,7 +34,7 @@ Sub ProcessMovement(Index As Long, St As String, MapNum As Long)
 
             If D = 1 Then
                 Select Case .D
-                Case 0:
+                Case 0
                     If .X = I And .Y = J - 1 Then
 
                     Else
@@ -43,7 +43,7 @@ Sub ProcessMovement(Index As Long, St As String, MapNum As Long)
                         PlayerWarp Index, .Map, .X, .Y
                         Exit Sub
                     End If
-                Case 1:
+                Case 1
                     If .X = I And .Y = J + 1 Then
 
                     Else
@@ -52,7 +52,7 @@ Sub ProcessMovement(Index As Long, St As String, MapNum As Long)
                         PlayerWarp Index, .Map, .X, .Y
                         Exit Sub
                     End If
-                Case 2:
+                Case 2
                     If .X = I - 1 And .Y = J Then
 
                     Else
@@ -61,7 +61,7 @@ Sub ProcessMovement(Index As Long, St As String, MapNum As Long)
                         PlayerWarp Index, .Map, .X, .Y
                         Exit Sub
                     End If
-                Case 3:
+                Case 3
                     If .X = I + 1 And .Y = J Then
 
                     Else
@@ -211,17 +211,6 @@ Sub ProcessMovement(Index As Long, St As String, MapNum As Long)
                 If D = 1 Then
                     Parameter(0) = Index
                     RunScript "MAP" + CStr(MapNum) + "_" + CStr(A) + "_" + CStr(B)
-                End If
-            Case 17    'Directional Wall
-                If D = 1 Then
-                    If .Access = 0 Then
-                        If NoDirectionalWalls(CLng(.Map), I, J, CLng(.D)) = False Then
-                            .X = I
-                            .Y = J
-                            PlayerWarp Index, .Map, .X, .Y
-                            Exit Sub
-                        End If
-                    End If
                 End If
             Case 19    ' Light
                 If D = 1 And .Access = 0 Then
