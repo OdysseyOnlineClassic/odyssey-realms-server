@@ -430,5 +430,5 @@ Public Class(1 To 5) As ClassData
 Public Ban(1 To 50) As BanData
 Public ItemPrefix(1 To MaxModifications) As PrefixData
 Public ItemSuffix(1 To MaxModifications) As PrefixData
-Public Bug(1 To 500) As BugData
+Public Bug() As BugData
 Public NumUsers As Long

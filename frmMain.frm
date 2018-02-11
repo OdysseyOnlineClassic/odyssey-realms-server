@@ -1098,7 +1098,8 @@ Dim A As Long
             CreateBugsTable
             Set BugsRS = DB.TableDefs("Bugs").OpenRecordset(dbOpenTable)
             BugsRS.Index = "ID"
-            For A = 1 To 500
+            On Error GoTo Skip
+            For A = 1 To UBound(Bug)
                 With Bug(A)
                     .PlayerUser = ""
                     .PlayerName = ""
@@ -1110,6 +1111,7 @@ Dim A As Long
                     .ResolverName = ""
                 End With
             Next A
+Skip:
         End If
     End If
 End Sub

@@ -61,10 +61,11 @@ End Sub
 
 Sub SaveBugReports()
 Dim A As Long, B As Long, St As String
-    For A = 1 To 500
+On Error GoTo ExitSub
+    For A = 1 To UBound(Bug)
         With Bug(A)
+            BugsRS.Seek "=", A
             If .Status > 0 Then
-                BugsRS.Seek "=", A
                 If BugsRS.NoMatch Then
                     BugsRS.AddNew
                 Else
@@ -80,9 +81,12 @@ Dim A As Long, B As Long, St As String
                 BugsRS!ResolverUser = .ResolverUser
                 BugsRS!ResolverName = .ResolverName
                 BugsRS.Update
+            Else
+                If Not BugsRS.NoMatch Then BugsRS.Delete
             End If
         End With
     Next A
+ExitSub:
 End Sub
 
 Sub CheckGuild(Index As Long)

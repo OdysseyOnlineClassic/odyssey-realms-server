@@ -2,13 +2,24 @@ Attribute VB_Name = "modSecurity"
 Option Explicit
 
 Function GetFreeBugSlot() As Long
-Dim A As Long
-    For A = 1 To 500
+On Error GoTo ErrorHandler
+    Dim A As Long
+    For A = 1 To UBound(Bug)
         If Bug(A).Status = 0 Then
             GetFreeBugSlot = A
             Exit Function
         End If
     Next A
+    If A > UBound(Bug) Then
+        ReDim Preserve Bug(1 To A)
+        GetFreeBugSlot = A
+    End If
+Exit Function
+ErrorHandler:
+    Select Case Err.number
+        Case 9 'Bug not yet dimensioned.
+            Err.Clear
+    End Select
 End Function
 
 Sub CheckPingSpeed(Index As Long)

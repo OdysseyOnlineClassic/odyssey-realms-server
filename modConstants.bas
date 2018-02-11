@@ -1,6 +1,10 @@
 Attribute VB_Name = "modConstants"
 Option Explicit
 
+Public Const BUG_STATUS_OPEN = 1
+Public Const BUG_STATUS_REVIEW = 2
+Public Const BUG_STATUS_CLOSED = 3
+
 'Misc
 Public Const LagHitDistance = 2
 Public Const NumClasses = 4

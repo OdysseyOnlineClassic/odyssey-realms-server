@@ -404,9 +404,12 @@ ReloadData:
         frmLoading.lblStatus.Refresh
     End If
     
-    For A = 1 To 500
-        BugsRS.Seek "=", A
-        If BugsRS.NoMatch = False Then
+    If BugsRS.BOF = False Then
+        BugsRS.MoveFirst
+        ReDim Bug(1 To 1)
+        While BugsRS.EOF = False
+            A = BugsRS!ID
+            If A > UBound(Bug) Then ReDim Preserve Bug(1 To A)
             With Bug(A)
                 .PlayerUser = BugsRS!PlayerUser
                 .PlayerName = BugsRS!PlayerName
@@ -417,8 +420,9 @@ ReloadData:
                 .ResolverUser = BugsRS!ResolverUser
                 .ResolverName = BugsRS!ResolverName
             End With
-        End If
-    Next A
+            BugsRS.MoveNext
+        Wend
+    End If
 
     If Startup = True Then
         frmLoading.lblStatus = "Loading Halls.."
