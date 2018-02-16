@@ -475,7 +475,7 @@ ReloadData:
                         ObjectRS.Update
                         '---------
                     
-                        .Name = ObjectRS!ObjName
+                        If Not IsNull(ObjectRS!ObjName) Then .Name = ObjectRS!ObjName
                         .Picture = ObjectRS!Picture
                         .Type = ObjectRS!Type
                         .flags = ObjectRS!flags

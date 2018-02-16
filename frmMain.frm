@@ -1507,7 +1507,7 @@ End Sub
 Private Sub mnuGold_Click()
     Open "report.txt" For Output As #1
 
-    Print #1, "***Odyssey God Report ***"
+    Print #1, "***Odyssey Gold Report ***"
     Print #1, ""
 
     If UserRS.BOF = False Then

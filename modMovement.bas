@@ -104,19 +104,19 @@ Sub ProcessMovement(Index As Long, St As String, MapNum As Long)
             End If
             SendToMapAllBut MapNum, Index, Chr$(10) + Chr$(Index) + Chr$(.X) + Chr$(.Y) + Chr$(.D) + Mid$(St, 4, 1)
 
-            Select Case Map(MapNum).Tile(I, J).Att
-            Case 17    'Directional Wall
-                If D = 1 Then
-                    If .Access = 0 Then
-                        If NoDirectionalWalls(CLng(.Map), CLng(.X), CLng(.Y), CLng(.D)) = False Then
-                            .X = I
-                            .Y = J
-                            PlayerWarp Index, .Map, .X, .Y
-                            Exit Sub
-                        End If
-                    End If
-                End If
-            End Select
+            'Select Case Map(MapNum).Tile(I, J).Att
+            'Case 17    'Directional Wall
+                'If D = 1 Then
+                    'If .Access = 0 Then
+                        'If NoDirectionalWalls(CLng(.Map), CLng(.X), CLng(.Y), CLng(.D)) = False Then
+                            '.X = I
+                            '.Y = J
+                            'PlayerWarp Index, .Map, .X, .Y
+                            'Exit Sub
+                        'End If
+                    'End If
+                'End If
+            'End Select
 
             Select Case Map(MapNum).Tile(.X, .Y).Att
             Case 1, 13, 14, 15, 16    'Wall
