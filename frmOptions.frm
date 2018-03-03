@@ -1,267 +1,267 @@
 VERSION 5.00
 Begin VB.Form frmOptions 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Odyssey Server Options"
-   ClientHeight    =   10215
+   Caption         =   "Odyssey Realms Server [Options]"
+   ClientHeight    =   9105
    ClientLeft      =   345
    ClientTop       =   90
-   ClientWidth     =   8940
+   ClientWidth     =   10635
    ControlBox      =   0   'False
    Icon            =   "frmOptions.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   10215
-   ScaleWidth      =   8940
+   ScaleHeight     =   9105
+   ScaleWidth      =   10635
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.TextBox txtUpkeepSprite 
       Height          =   285
-      Left            =   3240
+      Left            =   5280
       MaxLength       =   6
-      TabIndex        =   113
-      Top             =   8040
+      TabIndex        =   109
+      Top             =   7680
       Width           =   975
    End
    Begin VB.TextBox txtUpkeepMembers 
       Height          =   285
-      Left            =   3240
+      Left            =   5280
       MaxLength       =   6
-      TabIndex        =   110
-      Top             =   7560
+      TabIndex        =   106
+      Top             =   7320
       Width           =   975
    End
    Begin VB.TextBox txtDeathTime 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   3
       TabIndex        =   6
-      Top             =   960
+      Top             =   840
       Width           =   975
    End
    Begin VB.TextBox txtMaxGuildMembers 
       Height          =   285
-      Left            =   3240
+      Left            =   5280
       MaxLength       =   6
-      TabIndex        =   78
-      Top             =   7080
+      TabIndex        =   75
+      Top             =   6960
       Width           =   975
    End
    Begin VB.TextBox txtWisdom 
       Height          =   285
-      Left            =   7680
-      MaxLength       =   6
-      TabIndex        =   107
-      Top             =   9120
-      Width           =   975
-   End
-   Begin VB.TextBox txtStamina 
-      Height          =   285
-      Left            =   7680
-      MaxLength       =   6
-      TabIndex        =   105
-      Top             =   8880
-      Width           =   975
-   End
-   Begin VB.TextBox txtConstitution 
-      Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   103
       Top             =   8640
       Width           =   975
    End
-   Begin VB.TextBox txtConcentration 
+   Begin VB.TextBox txtStamina 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   101
-      Top             =   8400
+      Top             =   8280
+      Width           =   975
+   End
+   Begin VB.TextBox txtConstitution 
+      Height          =   285
+      Left            =   9600
+      MaxLength       =   6
+      TabIndex        =   99
+      Top             =   7920
+      Width           =   975
+   End
+   Begin VB.TextBox txtConcentration 
+      Height          =   285
+      Left            =   9600
+      MaxLength       =   6
+      TabIndex        =   97
+      Top             =   6840
       Width           =   975
    End
    Begin VB.TextBox txtIntelligence 
       Height          =   285
-      Left            =   1320
+      Left            =   9600
       MaxLength       =   6
-      TabIndex        =   97
-      Top             =   9240
+      TabIndex        =   93
+      Top             =   7560
       Width           =   975
    End
    Begin VB.TextBox txtEndurance 
       Height          =   285
-      Left            =   1320
+      Left            =   9600
       MaxLength       =   6
-      TabIndex        =   95
-      Top             =   9000
+      TabIndex        =   91
+      Top             =   7200
       Width           =   975
    End
    Begin VB.TextBox txtStrength 
       Height          =   285
-      Left            =   1320
+      Left            =   9600
       MaxLength       =   6
-      TabIndex        =   91
-      Top             =   8760
+      TabIndex        =   87
+      Top             =   6480
       Width           =   975
    End
    Begin VB.TextBox txtMaxLevel 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   3
       TabIndex        =   4
-      Top             =   600
+      Top             =   480
       Width           =   975
    End
    Begin VB.TextBox txtCostPerModifier 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
-      TabIndex        =   87
-      Top             =   5715
+      TabIndex        =   83
+      Top             =   3000
       Width           =   975
    End
    Begin VB.TextBox txtCostPerStrength 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
-      TabIndex        =   82
-      Top             =   5235
+      TabIndex        =   79
+      Top             =   2640
       Width           =   975
    End
    Begin VB.TextBox txtCostPerDurability 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
-      TabIndex        =   76
-      Top             =   4680
+      TabIndex        =   73
+      Top             =   2280
       Width           =   975
    End
    Begin VB.TextBox txtJoinGuildCost 
       Height          =   285
-      Left            =   3240
+      Left            =   5280
       MaxLength       =   6
-      TabIndex        =   72
+      TabIndex        =   69
       Top             =   6600
       Width           =   975
    End
    Begin VB.TextBox txtNewGuildCost 
       Height          =   285
-      Left            =   3240
+      Left            =   5280
       MaxLength       =   6
-      TabIndex        =   65
-      Top             =   6120
+      TabIndex        =   63
+      Top             =   6240
       Width           =   975
    End
    Begin VB.TextBox txtJoinGuildLevel 
       Height          =   285
-      Left            =   3240
+      Left            =   5280
       MaxLength       =   6
-      TabIndex        =   56
-      Top             =   5640
+      TabIndex        =   55
+      Top             =   5880
       Width           =   975
    End
    Begin VB.TextBox txtNewGuildLevel 
       Height          =   285
-      Left            =   3240
+      Left            =   5280
       MaxLength       =   6
       TabIndex        =   50
-      Top             =   5160
+      Top             =   5520
       Width           =   975
    End
    Begin VB.TextBox txtServerPort 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   44
-      Top             =   4200
+      Top             =   120
       Width           =   975
    End
    Begin VB.TextBox txtLumber 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   38
-      Top             =   3720
+      Top             =   6000
       Width           =   975
    End
    Begin VB.TextBox txtHighOre 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   32
-      Top             =   3360
+      Top             =   5640
       Width           =   975
    End
    Begin VB.TextBox txtMediumOre 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   26
-      Top             =   3000
+      Top             =   5280
       Width           =   975
    End
    Begin VB.TextBox txtLowOre 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   24
-      Top             =   2640
+      Top             =   4920
       Width           =   975
    End
    Begin VB.TextBox txtLargeFish 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   18
-      Top             =   2280
+      Top             =   4560
       Width           =   975
    End
    Begin VB.TextBox txtMediumFish 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   12
-      Top             =   1920
+      Top             =   4200
       Width           =   975
    End
    Begin VB.TextBox txtSmallFish 
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   9
-      Top             =   1560
+      Top             =   3840
       Width           =   975
    End
    Begin VB.TextBox txtMoneyObject 
       Enabled         =   0   'False
       Height          =   285
-      Left            =   7680
+      Left            =   9600
       MaxLength       =   3
       TabIndex        =   1
-      Top             =   240
+      Top             =   3480
       Width           =   975
    End
    Begin VB.TextBox txtObjectResetTime 
       Height          =   285
-      Left            =   6840
+      Left            =   9600
       MaxLength       =   6
-      TabIndex        =   59
-      Top             =   6480
+      TabIndex        =   58
+      Top             =   1560
       Width           =   975
    End
    Begin VB.TextBox txtBackUpInterval 
       Height          =   285
-      Left            =   6840
+      Left            =   9600
       MaxLength       =   2
-      TabIndex        =   66
-      Top             =   6840
+      TabIndex        =   64
+      Top             =   1920
       Width           =   975
    End
    Begin VB.TextBox txtMapResetTime 
       Height          =   285
-      Left            =   6840
+      Left            =   9600
       MaxLength       =   6
       TabIndex        =   52
-      Top             =   6120
+      Top             =   1200
       Width           =   975
    End
    Begin VB.TextBox txtVal 
@@ -269,7 +269,7 @@ Begin VB.Form frmOptions
       Index           =   8
       Left            =   1200
       MaxLength       =   5
-      TabIndex        =   99
+      TabIndex        =   95
       Top             =   8280
       Width           =   975
    End
@@ -278,7 +278,7 @@ Begin VB.Form frmOptions
       Index           =   7
       Left            =   1200
       MaxLength       =   5
-      TabIndex        =   93
+      TabIndex        =   89
       Top             =   7920
       Width           =   975
    End
@@ -287,7 +287,7 @@ Begin VB.Form frmOptions
       Index           =   6
       Left            =   1200
       MaxLength       =   5
-      TabIndex        =   89
+      TabIndex        =   85
       Top             =   7560
       Width           =   975
    End
@@ -296,7 +296,7 @@ Begin VB.Form frmOptions
       Index           =   5
       Left            =   1200
       MaxLength       =   5
-      TabIndex        =   84
+      TabIndex        =   81
       Top             =   7200
       Width           =   975
    End
@@ -305,7 +305,7 @@ Begin VB.Form frmOptions
       Index           =   4
       Left            =   1200
       MaxLength       =   5
-      TabIndex        =   80
+      TabIndex        =   77
       Top             =   6840
       Width           =   975
    End
@@ -314,7 +314,7 @@ Begin VB.Form frmOptions
       Index           =   3
       Left            =   1200
       MaxLength       =   5
-      TabIndex        =   74
+      TabIndex        =   71
       Top             =   6480
       Width           =   975
    End
@@ -323,7 +323,7 @@ Begin VB.Form frmOptions
       Index           =   2
       Left            =   1200
       MaxLength       =   5
-      TabIndex        =   70
+      TabIndex        =   67
       Top             =   6120
       Width           =   975
    End
@@ -332,7 +332,7 @@ Begin VB.Form frmOptions
       Index           =   1
       Left            =   1200
       MaxLength       =   5
-      TabIndex        =   64
+      TabIndex        =   62
       Top             =   5760
       Width           =   975
    End
@@ -341,7 +341,7 @@ Begin VB.Form frmOptions
       Index           =   8
       Left            =   120
       MaxLength       =   3
-      TabIndex        =   98
+      TabIndex        =   94
       Top             =   8280
       Width           =   735
    End
@@ -350,7 +350,7 @@ Begin VB.Form frmOptions
       Index           =   7
       Left            =   120
       MaxLength       =   3
-      TabIndex        =   92
+      TabIndex        =   88
       Top             =   7920
       Width           =   735
    End
@@ -359,7 +359,7 @@ Begin VB.Form frmOptions
       Index           =   6
       Left            =   120
       MaxLength       =   3
-      TabIndex        =   88
+      TabIndex        =   84
       Top             =   7560
       Width           =   735
    End
@@ -368,7 +368,7 @@ Begin VB.Form frmOptions
       Index           =   5
       Left            =   120
       MaxLength       =   3
-      TabIndex        =   83
+      TabIndex        =   80
       Top             =   7200
       Width           =   735
    End
@@ -377,7 +377,7 @@ Begin VB.Form frmOptions
       Index           =   4
       Left            =   120
       MaxLength       =   3
-      TabIndex        =   79
+      TabIndex        =   76
       Top             =   6840
       Width           =   735
    End
@@ -386,7 +386,7 @@ Begin VB.Form frmOptions
       Index           =   3
       Left            =   120
       MaxLength       =   3
-      TabIndex        =   73
+      TabIndex        =   70
       Top             =   6480
       Width           =   735
    End
@@ -395,7 +395,7 @@ Begin VB.Form frmOptions
       Index           =   2
       Left            =   120
       MaxLength       =   3
-      TabIndex        =   69
+      TabIndex        =   66
       Top             =   6120
       Width           =   735
    End
@@ -404,7 +404,7 @@ Begin VB.Form frmOptions
       Index           =   1
       Left            =   120
       MaxLength       =   3
-      TabIndex        =   63
+      TabIndex        =   61
       Top             =   5760
       Width           =   735
    End
@@ -595,328 +595,272 @@ Begin VB.Form frmOptions
       ScrollBars      =   2  'Vertical
       TabIndex        =   3
       Top             =   360
-      Width           =   5895
+      Width           =   6135
    End
    Begin VB.CommandButton btnCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
       Height          =   495
-      Left            =   6000
-      TabIndex        =   108
-      Top             =   9600
+      Left            =   2880
+      TabIndex        =   104
+      Top             =   8520
       Width           =   1215
    End
    Begin VB.CommandButton btnOk 
       Caption         =   "Save"
       Height          =   495
-      Left            =   7560
-      TabIndex        =   109
-      Top             =   9600
+      Left            =   4800
+      TabIndex        =   105
+      Top             =   8520
       Width           =   1215
    End
    Begin VB.Label lblUpkeepSprite 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Upkeep for Sprite"
-      Height          =   495
-      Left            =   2280
-      TabIndex        =   112
-      Top             =   7920
-      Width           =   855
+      Caption         =   "Daily Upkeep for Sprite"
+      Height          =   255
+      Left            =   2640
+      TabIndex        =   108
+      Top             =   7680
+      Width           =   2655
    End
    Begin VB.Label lblUpkeepMembers 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Upkeep for Members"
-      Height          =   495
-      Left            =   2280
-      TabIndex        =   111
-      Top             =   7440
-      Width           =   855
+      Caption         =   "Daily Upkeep per Member"
+      Height          =   255
+      Left            =   2640
+      TabIndex        =   107
+      Top             =   7320
+      Width           =   2535
    End
    Begin VB.Label cptDeathTime 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Death Time:"
+      Caption         =   "Death Respawn Time (seconds)"
       Height          =   255
-      Left            =   6360
+      Left            =   6600
       TabIndex        =   7
-      Top             =   1005
-      Width           =   1215
+      Top             =   840
+      Width           =   3015
    End
    Begin VB.Label Label1 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Max Guild Members:"
-      Height          =   495
-      Left            =   2280
-      TabIndex        =   77
+      Caption         =   "Maximum Guild Members"
+      Height          =   255
+      Left            =   2640
+      TabIndex        =   74
       Top             =   6960
-      Width           =   855
+      Width           =   2535
    End
    Begin VB.Label lblWisdom 
-      Caption         =   "Wisdom:"
+      Caption         =   "Base Mana (wisdom)"
       Height          =   255
-      Left            =   6480
-      TabIndex        =   106
-      Top             =   9120
-      Width           =   1095
-   End
-   Begin VB.Label lblStamina 
-      Caption         =   "Stamina"
-      Height          =   255
-      Left            =   6480
-      TabIndex        =   104
-      Top             =   8880
-      Width           =   1095
-   End
-   Begin VB.Label lblConstitution 
-      Caption         =   "Constitution"
-      Height          =   255
-      Left            =   6480
+      Left            =   6600
       TabIndex        =   102
       Top             =   8640
-      Width           =   1095
+      Width           =   3015
+   End
+   Begin VB.Label lblStamina 
+      Caption         =   "Base Energy (stamina)"
+      Height          =   255
+      Left            =   6600
+      TabIndex        =   100
+      Top             =   8280
+      Width           =   3015
+   End
+   Begin VB.Label lblConstitution 
+      Caption         =   "Base Health (constitution)"
+      Height          =   255
+      Left            =   6600
+      TabIndex        =   98
+      Top             =   7920
+      Width           =   3015
    End
    Begin VB.Label lblConcentration 
-      Caption         =   "Concentration:"
+      Caption         =   "Base Magic Damage (concentration)"
       Height          =   255
-      Left            =   6480
-      TabIndex        =   100
-      Top             =   8400
-      Width           =   1095
+      Left            =   6600
+      TabIndex        =   96
+      Top             =   6840
+      Width           =   3015
    End
    Begin VB.Label lblIntelligence 
-      Caption         =   "Mana Regen:"
+      Caption         =   "Base Mana Regeneration (intelligence)"
       Height          =   255
-      Left            =   120
-      TabIndex        =   96
-      Top             =   9240
-      Width           =   975
+      Left            =   6600
+      TabIndex        =   92
+      Top             =   7560
+      Width           =   3015
    End
    Begin VB.Label lblEndurance 
-      Caption         =   "HP Regen:"
+      Caption         =   "Base Health Regeneration (endurance)"
       Height          =   255
-      Left            =   120
-      TabIndex        =   94
-      Top             =   9000
-      Width           =   975
+      Left            =   6600
+      TabIndex        =   90
+      Top             =   7200
+      Width           =   3015
    End
    Begin VB.Label lblStrength 
-      Caption         =   "Damage:"
+      Caption         =   "Base Physical Damage (strength)"
       Height          =   255
-      Left            =   120
-      TabIndex        =   90
-      Top             =   8760
-      Width           =   975
-   End
-   Begin VB.Label lblPointsPerBonus 
-      Caption         =   "Stat Points Per Bonus:"
-      Height          =   255
-      Left            =   6480
-      TabIndex        =   85
-      Top             =   7320
-      Width           =   1935
+      Left            =   6600
+      TabIndex        =   86
+      Top             =   6480
+      Width           =   3015
    End
    Begin VB.Label lblMaximumLevel 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Maximum Level:"
+      Caption         =   "Maximum Combat Level"
       Height          =   255
-      Left            =   6360
+      Left            =   6600
       TabIndex        =   5
-      Top             =   645
-      Width           =   1215
+      Top             =   480
+      Width           =   2895
    End
    Begin VB.Label lblCostPerModifier 
-      Alignment       =   1  'Right Justify
       Caption         =   "Repair Cost Per Modifier:"
-      Height          =   495
-      Left            =   6360
-      TabIndex        =   86
-      Top             =   5640
-      Width           =   1215
+      Height          =   255
+      Left            =   6600
+      TabIndex        =   82
+      Top             =   3000
+      Width           =   3015
    End
    Begin VB.Label lblCostPerStrength 
-      Alignment       =   1  'Right Justify
       Caption         =   "Repair Cost Per Strength:"
-      Height          =   495
-      Left            =   6360
-      TabIndex        =   81
-      Top             =   5160
-      Width           =   1215
+      Height          =   255
+      Left            =   6600
+      TabIndex        =   78
+      Top             =   2640
+      Width           =   3015
    End
    Begin VB.Label lblCostPerDurability 
-      Alignment       =   1  'Right Justify
       Caption         =   "Repair Cost Per Durability:"
-      Height          =   495
-      Left            =   6360
-      TabIndex        =   75
-      Top             =   4605
-      Width           =   1215
+      Height          =   255
+      Left            =   6600
+      TabIndex        =   72
+      Top             =   2280
+      Width           =   3015
    End
    Begin VB.Label lblJoinGuildCost 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Join Guild Cost:"
-      Height          =   495
-      Left            =   2280
-      TabIndex        =   71
-      Top             =   6480
-      Width           =   855
+      Caption         =   "Cost to Join Guild"
+      Height          =   255
+      Left            =   2640
+      TabIndex        =   68
+      Top             =   6600
+      Width           =   2535
    End
    Begin VB.Label lblNewGuildCost 
-      Alignment       =   1  'Right Justify
-      Caption         =   "New Guild Cost:"
-      Height          =   495
-      Left            =   2280
-      TabIndex        =   62
-      Top             =   6000
-      Width           =   855
+      Caption         =   "Cost to Create New Guild"
+      Height          =   375
+      Left            =   2640
+      TabIndex        =   60
+      Top             =   6240
+      Width           =   2535
    End
    Begin VB.Label lblJoinGuildLevel 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Join Guild Level:"
-      Height          =   495
-      Left            =   2280
-      TabIndex        =   55
-      Top             =   5520
-      Width           =   855
+      Caption         =   "Required Level to Join Guild"
+      Height          =   255
+      Left            =   2640
+      TabIndex        =   54
+      Top             =   5880
+      Width           =   2535
    End
    Begin VB.Label lblNewGuildLevel 
-      Alignment       =   1  'Right Justify
-      Caption         =   "New Guild Level:"
-      Height          =   495
-      Left            =   2280
+      Caption         =   "Required Level to Create Guild"
+      Height          =   375
+      Left            =   2640
       TabIndex        =   49
-      Top             =   5040
-      Width           =   855
+      Top             =   5520
+      Width           =   2775
    End
    Begin VB.Label lblServerPort 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Server Port:"
+      Caption         =   "Server Port"
       Height          =   255
-      Left            =   6720
+      Left            =   6600
       TabIndex        =   43
-      Top             =   4200
-      Width           =   855
+      Top             =   120
+      Width           =   2895
    End
    Begin VB.Label lblLumber 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Lumber:"
+      Caption         =   "Lumber Object #"
       Height          =   255
-      Left            =   6720
+      Left            =   6600
       TabIndex        =   37
-      Top             =   3720
-      Width           =   855
+      Top             =   6000
+      Width           =   3015
    End
    Begin VB.Label lblHighOre 
-      Alignment       =   1  'Right Justify
-      Caption         =   "High Ore:"
+      Caption         =   "High Ore Object #"
       Height          =   255
       Left            =   6600
       TabIndex        =   31
-      Top             =   3360
-      Width           =   975
+      Top             =   5640
+      Width           =   3015
    End
    Begin VB.Label lblMediumOre 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Medium Ore:"
+      Caption         =   "Medium Ore Object #"
       Height          =   255
       Left            =   6600
       TabIndex        =   25
-      Top             =   3000
-      Width           =   975
+      Top             =   5280
+      Width           =   3015
    End
    Begin VB.Label lblLowOre 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Low Ore:"
+      Caption         =   "Low Ore Object #"
       Height          =   255
       Left            =   6600
       TabIndex        =   23
-      Top             =   2640
-      Width           =   975
+      Top             =   4920
+      Width           =   3015
    End
    Begin VB.Label lblLargeFish 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Large Fish:"
+      Caption         =   "High Fish Object #"
       Height          =   255
       Left            =   6600
       TabIndex        =   17
-      Top             =   2280
-      Width           =   975
+      Top             =   4560
+      Width           =   3015
    End
    Begin VB.Label lblMediumFish 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Medium Fish:"
+      Caption         =   "Medium Fish Object #"
       Height          =   255
       Left            =   6600
       TabIndex        =   11
-      Top             =   1920
-      Width           =   975
+      Top             =   4200
+      Width           =   3015
    End
    Begin VB.Label lblSmallFish 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Small Fish:"
+      Caption         =   "Low Fish Object #"
       Height          =   255
-      Left            =   6720
+      Left            =   6600
       TabIndex        =   8
-      Top             =   1560
-      Width           =   855
-   End
-   Begin VB.Label cptMs 
-      Caption         =   "Milliseconds"
-      Height          =   255
-      Left            =   7920
-      TabIndex        =   53
-      Top             =   6120
-      Width           =   975
-   End
-   Begin VB.Label cptMilliseconds 
-      Caption         =   "Milliseconds"
-      Height          =   255
-      Left            =   7920
-      TabIndex        =   60
-      Top             =   6480
-      Width           =   975
-   End
-   Begin VB.Label cptMinutes 
-      Caption         =   "Minutes"
-      Height          =   255
-      Left            =   7920
-      TabIndex        =   67
-      Top             =   6840
-      Width           =   615
+      Top             =   3840
+      Width           =   3015
    End
    Begin VB.Label cptMoneyObject 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Money Object:"
+      Caption         =   "Money Object #"
       Height          =   255
-      Left            =   6360
+      Left            =   6600
       TabIndex        =   2
-      Top             =   285
-      Width           =   1215
+      Top             =   3480
+      Width           =   3015
    End
    Begin VB.Label cptObjectReset 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Obj Reset Time:"
+      Caption         =   "Object Reset Time (milliseconds)"
       Height          =   255
-      Left            =   5520
-      TabIndex        =   61
-      Top             =   6525
-      Width           =   1215
+      Left            =   6600
+      TabIndex        =   59
+      Top             =   1560
+      Width           =   3015
    End
    Begin VB.Label cptBackupInterval 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Backup Interval:"
+      Caption         =   "Autosave Interval (minutes)"
       Height          =   255
-      Left            =   5520
-      TabIndex        =   68
-      Top             =   6885
-      Width           =   1215
+      Left            =   6600
+      TabIndex        =   65
+      Top             =   1920
+      Width           =   3015
    End
    Begin VB.Label cptMapResetTime 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Map Reset Time:"
+      Caption         =   "Map Reset Time (milliseconds)"
       Height          =   255
-      Left            =   5520
-      TabIndex        =   54
-      Top             =   6165
-      Width           =   1215
+      Left            =   6600
+      TabIndex        =   53
+      Top             =   1200
+      Width           =   3015
    End
    Begin VB.Label cptAmount 
       Caption         =   "Amount"
@@ -931,7 +875,7 @@ Begin VB.Form frmOptions
       EndProperty
       Height          =   255
       Left            =   1200
-      TabIndex        =   58
+      TabIndex        =   57
       Top             =   5400
       Width           =   735
    End
@@ -947,10 +891,10 @@ Begin VB.Form frmOptions
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   240
-      TabIndex        =   57
+      Left            =   120
+      TabIndex        =   56
       Top             =   5400
-      Width           =   615
+      Width           =   735
    End
    Begin VB.Label cptStartingObjects 
       Caption         =   "Starting Objects:"
@@ -961,7 +905,7 @@ Begin VB.Form frmOptions
       Width           =   1335
    End
    Begin VB.Label cptTxt 
-      Caption         =   "Text"
+      Caption         =   "Player Message"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   8.25
@@ -975,7 +919,7 @@ Begin VB.Form frmOptions
       Left            =   2640
       TabIndex        =   16
       Top             =   2280
-      Width           =   735
+      Width           =   1335
    End
    Begin VB.Label cptY 
       Caption         =   "Y"
@@ -1037,12 +981,12 @@ Begin VB.Form frmOptions
       Width           =   1215
    End
    Begin VB.Label lblMOTD 
-      Caption         =   "MOTD:"
+      Caption         =   "Message of the Day"
       Height          =   375
       Left            =   120
       TabIndex        =   0
       Top             =   120
-      Width           =   855
+      Width           =   1695
    End
 End
 Attribute VB_Name = "frmOptions"

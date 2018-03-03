@@ -959,7 +959,7 @@ Sub Main()
 
     ListeningSocket = ListenForConnect(World.ServerPort, gHW, 1025)
     If ListeningSocket = INVALID_SOCKET Then
-        MsgBox "Unable to create listening socket!1", vbOKOnly + vbExclamation, TitleString
+        MsgBox "Unable to create listening socket!", vbOKOnly + vbExclamation, TitleString
         EndWinsock
         Unhook
         End
@@ -976,24 +976,14 @@ Sub Main()
         Unhook
         End
     End If
-    'If setsockopt(ListeningSocket, SOL_SOCKET, SO_RCVBUF, 8192&, 4) <> 0 Then
-    '    MsgBox "Unable to create listening socket!", vbOKOnly + vbExclamation, TitleString
-    '    EndWinsock
-    '    Unhook
-    '    End
-    'End If
-    'If setsockopt(ListeningSocket, SOL_SOCKET, SO_SNDBUF, 8192&, 4) <> 0 Then
-    '    MsgBox "Unable to create listening socket!", vbOKOnly + vbExclamation, TitleString
-    '    EndWinsock
-    '    Unhook
-    '    End
-    'End If
-
+    
     Unload frmLoading
 
     frmMain.Show
     Startup = False
     PrintLog ("Odyssey Realms Registry Version B" + CStr(CurrentClientVer) + ".")
+    PrintLog "Attempting to connect to the Registry..."
+    ConnectToRegistry
 End Sub
 Function NewMapMonster(MapNum As Long, MonsterNum As Long) As String
     Dim TX As Long, TY As Long, TriesLeft As Long

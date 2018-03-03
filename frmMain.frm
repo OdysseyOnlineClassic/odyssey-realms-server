@@ -1,6 +1,7 @@
 VERSION 5.00
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmMain 
-   Caption         =   "The Odyssey Classic Server"
+   Caption         =   "Odyssey Realms Server"
    ClientHeight    =   1605
    ClientLeft      =   225
    ClientTop       =   555
@@ -11,6 +12,18 @@ Begin VB.Form frmMain
    ScaleHeight     =   1605
    ScaleWidth      =   7500
    StartUpPosition =   2  'CenterScreen
+   Begin MSWinsockLib.Winsock sckRegistry 
+      Left            =   2400
+      Top             =   0
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   393216
+   End
+   Begin VB.Timer tmrRegistryConnect 
+      Interval        =   3000
+      Left            =   1920
+      Top             =   0
+   End
    Begin VB.Timer tmrCloseScks 
       Interval        =   1000
       Left            =   1440
@@ -1864,6 +1877,39 @@ LogDatShit:
     End If
 End Sub
 
+Private Sub sckRegistry_DataArrival(ByVal bytesTotal As Long)
+Dim PacketLength As Integer, PacketID As Integer
+Dim St As String, St1 As String
+Dim A As Long, B As Long, C As Long
+    
+    sckRegistry.GetData St, vbString
+    regSocketData = regSocketData + St
+LoopRead:
+    If Len(regSocketData) >= 3 Then
+        PacketLength = GetInt(Mid$(regSocketData, 1, 2))
+        If Len(regSocketData) - 2 >= PacketLength Then
+            St = Mid$(regSocketData, 3, PacketLength)
+            regSocketData = Mid$(regSocketData, PacketLength + 3)
+            If PacketLength > 0 Then
+                PacketID = Asc(Mid$(St, 1, 1))
+                St = Mid$(St, 2)
+                Select Case PacketID
+                    Case 0 'Connection Accepted
+                        PrintLog "Connection to the Registry has been established!"
+                        SendRegistrySocket Chr$(0) + Chr$(NumUsers) + DoubleChar(CLng(World.ServerPort))
+                    Case 1 'Connection Declined
+                        Select Case Asc(Mid$(St, 1, 1))
+                            Case 0
+                                PrintLog "Connection to the Registry has been declined!"
+                                frmMain.tmrRegistryConnect.Enabled = False
+                                sckRegistry.Close
+                        End Select
+                End Select
+            End If
+            GoTo LoopRead
+        End If
+    End If
+End Sub
 Private Sub tmrCloseScks_Timer()
     On Error GoTo LogDatShit
 
@@ -1890,7 +1936,15 @@ LogDatShit:
     PrintLog "WARNING:  Server Crashed on Close Socket Timer: " + Err.Description
     PrintDebug "WARNING:  Server Crashed on Close Socket Timer: " + Err.Description
 End Sub
-
+Private Sub tmrRegistryConnect_Timer()
+    With sckRegistry
+        If .State = sckConnected Then
+            tmrRegistryConnect.Enabled = False
+        Else
+            ConnectToRegistry
+        End If
+    End With
+End Sub
 Private Sub txtMessage_KeyPress(KeyAscii As Integer)
     If KeyAscii = 13 Or KeyAscii = 10 Then
         SendAll Chr$(30) + txtMessage
