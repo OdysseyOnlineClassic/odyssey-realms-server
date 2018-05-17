@@ -2,7 +2,7 @@ Attribute VB_Name = "modServer"
 Option Explicit
 
 'Game Constants
-Public Const TitleString = "Odyssey Realms Server"
+Public Const TitleString = "Roshar"
 Public Const MaxUsers = 80
 Public Const DownloadSite = "http://www.odysseyclassic.info"
 
@@ -983,7 +983,7 @@ Sub Main()
     Startup = False
     PrintLog ("Odyssey Realms Server Version B" + CStr(CurrentClientVer) + ".")
     'PrintLog "Attempting to connect to the Registry..."
-    ConnectToRegistry
+    'ConnectToRegistry
 End Sub
 Function NewMapMonster(MapNum As Long, MonsterNum As Long) As String
     Dim TX As Long, TY As Long, TriesLeft As Long
