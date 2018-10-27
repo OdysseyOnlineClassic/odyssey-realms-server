@@ -2147,25 +2147,8 @@ Sub ShutdownServer()
             End If
         End If
     Next A
-
-    SaveFlags
-    SaveObjects
-
-    UserRS.Close
-    GuildRS.Close
-    NPCRS.Close
-    MonsterRS.Close
-    ObjectRS.Close
-    DataRS.Close
-    MapRS.Close
-    BanRS.Close
-    PrefixRS.Close
-    SuffixRS.Close
-    MagicRS.Close
-    DB.Close
-    WS.Close
-    
-    End
+	
+	Unload frmMain
 End Sub
 Sub SendToMapAllBut(ByVal MapNum As Long, ByVal Index As Long, ByVal St As String)
     Dim A As Long
