@@ -22,28 +22,28 @@ ErrorHandler:
     End Select
 End Function
 
-Sub CheckPingSpeed(Index As Long)
-Dim A As Long, B As Long
-    With Player(Index)
-        For A = 1 To 5
-            If .Ping(A) = 0 Then Exit Sub 'Only check if all of the ping arrays has been filled with values to compare.
-        Next A
-        For A = 1 To 5
-            B = B + .Ping(A)
-        Next A
-        B = 5000 - (B / 5) 'B/5 = average interval frequency. Near to or above 5000 is in sync, if significantly lower frequency then possible speed hack
-        If B >= 50 Then
-            .SpeedStrikes = .SpeedStrikes + 1
-            If .SpeedStrikes >= 2 And .SpeedStrikes <= 5 Then
-                SendToGods Chr$(16) + Chr$(0) + "Warning: Possible speed hack detected from player - " + .Name + " " + CStr(B) + "ms faster than the required average ping frequency!"
-            ElseIf .SpeedStrikes >= 6 Then
+'Sub CheckPingSpeed(Index As Long)
+'Dim A As Long, B As Long
+    'With Player(Index)
+        'For A = 1 To 5
+            'If .Ping(A) = 0 Then Exit Sub 'Only check if all of the ping arrays has been filled with values to compare.
+        'Next A
+        'For A = 1 To 5
+            'B = B + .Ping(A)
+        'Next A
+        'B = 5000 - (B / 5) 'B/5 = average interval frequency. Near to or above 5000 is in sync, if significantly lower frequency then possible speed hack
+        'If B >= 50 Then
+            '.SpeedStrikes = .SpeedStrikes + 1
+            'If .SpeedStrikes >= 2 And .SpeedStrikes <= 5 Then
+                'SendToGods Chr$(16) + Chr$(0) + "Warning: Possible speed hack detected from player - " + .Name + " " + CStr(B) + "ms faster than the required average ping frequency!"
+            'ElseIf .SpeedStrikes >= 6 Then
                 'BootPlayer Index, 0, "Speed Hack Detected!"
-            End If
-        Else
-            If .SpeedStrikes > 0 Then .SpeedStrikes = .SpeedStrikes - 1
-        End If
-    End With
-End Sub
+            'End If
+        'Else
+            'If .SpeedStrikes > 0 Then .SpeedStrikes = .SpeedStrikes - 1
+        'End If
+    'End With
+'End Sub
 
 Function CheckBan(Index As Long, PlayerName As String, ComputerID As String, IPAddress As String) As Boolean
     Dim BanNum As Long
