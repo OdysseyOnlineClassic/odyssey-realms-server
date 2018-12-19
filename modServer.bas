@@ -6,7 +6,7 @@ Public Const TitleString = "Odyssey Realms Server"
 Public Const MaxUsers = 80
 Public Const DownloadSite = "http://www.odysseyclassic.info"
 
-Public Const CurrentClientVer = 4
+Public Const CurrentClientVer = 5
 Public Const PrefixSuffixChance = 40
 
 'Misc Variables

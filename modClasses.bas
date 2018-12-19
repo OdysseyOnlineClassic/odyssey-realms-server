@@ -2,7 +2,8 @@ Attribute VB_Name = "modClasses"
 Option Explicit
 
 Sub CreateClassData()
-    If World.ServerPort > 1 Then 'Class Stats
+'Classic Class Stats
+    If World.ServerPort = 5750 Then
         With Class(1)    'Knight
             .StartHP = 20
             .StartEnergy = 15
@@ -34,6 +35,34 @@ Sub CreateClassData()
             .MaxHP = 140
             .MaxEnergy = 100
             .MaxMana = 150
+        End With
+        Exit Sub
+    End If
+'Carcassonne Class Stats
+    If World.ServerPort = 5762 Then
+        With Class(1)    'Demigod
+            .StartHP = 20
+            .StartEnergy = 13
+            .StartMana = 15
+            .MaxHP = 200
+            .MaxEnergy = 130
+            .MaxMana = 150
+        End With
+        With Class(2)    'Shaman
+            .StartHP = 16
+            .StartEnergy = 14
+            .StartMana = 20
+            .MaxHP = 160
+            .MaxEnergy = 145
+            .MaxMana = 200
+        End With
+        With Class(3)    'Demon
+            .StartHP = 16
+            .StartEnergy = 16
+            .StartMana = 18
+            .MaxHP = 160
+            .MaxEnergy = 160
+            .MaxMana = 180
         End With
         Exit Sub
     End If
