@@ -1587,7 +1587,8 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                             Else
                                 ObjectRS.Edit
                             End If
-                            ObjectRS!ObjName = .Name
+                            'ObjectRS!ObjName = .Name 'Extended Table Names
+                            ObjectRS!Name = .Name
                             ObjectRS!Picture = .Picture
                             ObjectRS!Type = .Type
                             ObjectRS!flags = .flags
@@ -2296,7 +2297,7 @@ Sub ProcessString(Index As Long, PacketID As Long, St As String)
                 End If
 
             Case 49    'Upload Guild hall data
-                If Len(St) >= 13 And Len(St) <= 43 And .Access >= 2 Then
+                If Len(St) >= 13 And Len(St) <= 28 And .Access >= 2 Then
                     A = Asc(Mid$(St, 1, 1))
                     If A >= 1 Then
                         With Hall(A)

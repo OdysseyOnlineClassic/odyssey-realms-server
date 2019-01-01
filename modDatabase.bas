@@ -43,22 +43,22 @@ Sub LoadDatabase()
     
     'Temporary conversion code to update current database object name length...can be removed after conversion successful
     '--------------
-    Dim Td As TableDef
-    Dim NewField As Field
-    Dim ObjNameConverted As Boolean
+    'Dim Td As TableDef
+    'Dim NewField As Field
+    'Dim ObjNameConverted As Boolean
     
-    Set Td = DB.TableDefs("Objects")
-    On Error GoTo CreateObjName
-    Set NewField = Td.Fields("ObjName")
-    ObjNameConverted = True
-    GoTo SkipObjName
-CreateObjName:
-    Err.Clear
-    Set NewField = Td.CreateField("ObjName", dbText, 35)
-    NewField.AllowZeroLength = True
-    Td.Fields.Append NewField
-SkipObjName:
-    On Error GoTo 0
+    'Set Td = DB.TableDefs("Objects")
+    'On Error GoTo CreateObjName
+    'Set NewField = Td.Fields("ObjName")
+    'ObjNameConverted = True
+    'GoTo SkipObjName
+'CreateObjName:
+    'Err.Clear
+    'Set NewField = Td.CreateField("ObjName", dbText, 35)
+    'NewField.AllowZeroLength = True
+    'Td.Fields.Append NewField
+'SkipObjName:
+    'On Error GoTo 0
     '--------------
 
     Err.Clear
@@ -379,7 +379,7 @@ ReloadData:
     If UserRS.BOF = False Then
         UserRS.MoveFirst
         While UserRS.EOF = False
-            If CLng(Date) - UserRS!LastPlayed >= 365 Then
+            If CLng(Date) - UserRS!LastPlayed >= 7 Then
                 If UserRS!Level < 2 Then
                     DeleteAccount
                 ElseIf UserRS!Name = vbNullString Then
@@ -459,20 +459,24 @@ ReloadData:
         While ObjectRS.EOF = False
             A = ObjectRS!number
             If A > 0 Then
-                If ObjNameConverted = False And ObjectRS!Name = "" Then
-                    ObjectRS.Edit
-                    ObjectRS.Delete
-                ElseIf ObjNameConverted And ObjectRS!ObjName = "" Then
+                If ObjectRS!Name = "" Then
+                'Extended Table Fields -- Removed due to compatibility issues
+                ' ---------
+                'If ObjNameConverted = False And ObjectRS!Name = "" Then
+                    'ObjectRS.Edit
+                    'ObjectRS.Delete
+                'ElseIf ObjNameConverted And ObjectRS!ObjName = "" Then
+                ' ---------
                     ObjectRS.Edit
                     ObjectRS.Delete
                 Else
                     With Object(A)
-                        
-                        'More Temp code...
+                        .Name = ObjectRS!Name
+                        'More Temp code for converting extended table fields...
                         '---------
-                        ObjectRS.Edit
-                        ObjectRS!ObjName = ObjectRS!Name
-                        ObjectRS.Update
+                        'ObjectRS.Edit
+                        'ObjectRS!ObjName = ObjectRS!Name
+                        'ObjectRS.Update
                         '---------
                     
                         If Not IsNull(ObjectRS!ObjName) Then .Name = ObjectRS!ObjName
@@ -1038,7 +1042,7 @@ Sub CreateGuildsTable()
     Set Td = DB.CreateTableDef("Guilds")
     Set NewField = Td.CreateField("Number", dbByte)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 25)
+    Set NewField = Td.CreateField("Name", dbText, 20)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("Hall", dbByte)
@@ -1218,7 +1222,7 @@ Sub CreateNPCsTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 35)
+    Set NewField = Td.CreateField("Name", dbText, 15)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("JoinText", dbText, 255)
@@ -1273,7 +1277,7 @@ Sub CreateMonstersTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 35)
+    Set NewField = Td.CreateField("Name", dbText, 15)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("Description", dbText, 255)
@@ -1331,7 +1335,7 @@ Sub CreateObjectsTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 35)
+    Set NewField = Td.CreateField("Name", dbText, 15)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("Description", dbText, 255)
@@ -1385,7 +1389,7 @@ Sub CreateMagicTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 25)
+    Set NewField = Td.CreateField("Name", dbText, 15)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("Level", dbByte)
@@ -1427,7 +1431,7 @@ Sub CreatePrefixTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 20)
+    Set NewField = Td.CreateField("Name", dbText, 15)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("ModificationType", dbByte)
@@ -1462,7 +1466,7 @@ Sub CreateSuffixTable()
     'Create Fields
     Set NewField = Td.CreateField("Number", dbInteger)
     Td.Fields.Append NewField
-    Set NewField = Td.CreateField("Name", dbText, 20)
+    Set NewField = Td.CreateField("Name", dbText, 15)
     NewField.AllowZeroLength = True
     Td.Fields.Append NewField
     Set NewField = Td.CreateField("ModificationType", dbByte)

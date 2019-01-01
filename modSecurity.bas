@@ -32,11 +32,11 @@ Dim A As Long, B As Long
             B = B + .Ping(A)
         Next A
         B = 5000 - (B / 5) 'B/5 = average interval frequency. Near to or above 5000 is in sync, if significantly lower frequency then possible speed hack
-        If B >= 500 Then
+        If B >= 1000 Then
             .SpeedStrikes = .SpeedStrikes + 1
             If .SpeedStrikes >= 2 And .SpeedStrikes <= 5 Then
                 SendToGods Chr$(16) + Chr$(0) + "Warning: Possible speed hack detected from player - " + .Name + " " + CStr(B) + "ms faster than the required average ping frequency!"
-            ElseIf .SpeedStrikes >= 10 Then
+            ElseIf .SpeedStrikes >= 20 Then
                 BootPlayer Index, 0, "Speed Hack Detected!"
             End If
         Else
