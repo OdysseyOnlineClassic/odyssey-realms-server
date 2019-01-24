@@ -802,7 +802,32 @@ LogDatShit:
 End Sub
 Private Sub menuShutdown_Click()
     ShutdownServer
-    Unload Me
+End Sub
+
+Private Sub frmMain_Unload()
+	SaveFlags
+	SaveObjects
+	
+	Dim xForm As Form
+	For Each xForm In Forms
+		If xForm.Name <> "frmMain" Then
+			Unload xForm: Set xForm = Nothing
+		End If
+	Next xForm
+	
+    UserRS.Close: Set UserRS = Nothing
+    GuildRS.Close: Set GuildRS = Nothing
+    NPCRS.Close: Set NPCRS = Nothing
+    MonsterRS.Close: Set MonsterRS = Nothing
+    ObjectRS.Close: Set ObjectRS = Nothing
+    DataRS.Close: Set DataRS = Nothing
+    MapRS.Close: Set MapRS = Nothing
+    BanRS.Close: Set BanRS = Nothing
+    PrefixRS.Close: Set PrefixRS = Nothing
+    SuffixRS.Close: Set SuffixRS = Nothing
+    MagicRS.Close: Set MagicRS = Nothing
+    DB.Close: Set DB = Nothing
+    WS.Close: Set WS = Nothing	
 End Sub
 
 Private Sub MinuteTimer_Timer()

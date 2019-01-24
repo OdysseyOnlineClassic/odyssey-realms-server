@@ -171,7 +171,7 @@ ReloadData:
             !GuildUpkeepMembers = 1000
             !GuildUpkeepSprite = 1000
 
-            !ServerPort = 5756
+            !ServerPort = 5750
 
             !Cost_Per_Durability = 100
             !Cost_Per_Strength = 100
@@ -291,7 +291,6 @@ ReloadData:
     If World.LastUpdate > CLng(Date) Or Abs(World.LastUpdate - CLng(Date)) >= 30 Then
         If MsgBox("Please verify that your system date and time is set correctly -- click ok to go on.", vbOKCancel, TitleString) = vbCancel Then
             ShutdownServer
-            End
         End If
     End If
     
